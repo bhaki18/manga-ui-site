@@ -86,54 +86,63 @@
         </div>
       </div>
 
-      <!-- Smart Auto-Detected OS Recommendation Box -->
-      <div class="smart-os-box" id="smartOsBox">
-        <div class="smart-os-header">
-          <div class="smart-os-badge">
-            <span class="pulse-indicator"></span>
-            <span>Rilevamento Automatico OS</span>
+      <!-- TLauncher-Style Hero CTA Hub -->
+      <div class="hero-cta-hub">
+        
+        <!-- GUI Mode View -->
+        <div id="heroGuiHub" style="display: flex; flex-direction: column; align-items: center; gap: 18px; width: 100%;">
+          <div class="tlauncher-btn-group">
+            <a href="#" id="btnHeroDownload" class="btn-tlauncher">
+              <span class="tl-icon" id="heroTlIcon">⬇</span>
+              <span class="tl-text">
+                <span class="tl-main">SCARICA MANGA GUI</span>
+                <span class="tl-sub" id="heroTlSub">Per il tuo sistema</span>
+              </span>
+            </a>
+
+            <button class="btn-tlauncher-platforms open-platform-modal" type="button">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                <line x1="8" y1="21" x2="16" y2="21"/>
+                <line x1="12" y1="17" x2="12" y2="21"/>
+              </svg>
+              <span>Altre Piattaforme</span>
+            </button>
           </div>
-          <div class="smart-os-detected" id="osDetectedBadge">
-            <span class="os-icon">💻</span>
-            <span>Rilevamento in corso...</span>
+
+          <div class="tlauncher-platforms-row">
+            <span>Disponibile per:</span>
+            <button class="platform-pill" onclick="selectTabAndScroll('tab-win')" type="button">🪟 Windows</button>
+            <button class="platform-pill" onclick="selectTabAndScroll('tab-deb')" type="button">🐧 Linux (.deb / Arch)</button>
+            <button class="platform-pill" onclick="selectTabAndScroll('tab-android')" type="button">📱 Android (APK)</button>
           </div>
         </div>
 
-        <div class="smart-os-content" id="smartOsContent">
-          <!-- Popolato dinamicamente da main.js in base all'OS rilevato e alla modalità GUI/CLI -->
+        <!-- CLI Mode View -->
+        <div id="heroCliHub" class="hero-cli-hub">
+          <div class="code-box" style="margin-bottom: 0;">
+            <div class="code-header">
+              <div class="code-dots">
+                <span></span><span></span><span></span>
+              </div>
+              <span>Installazione Rapida Manga CLI</span>
+              <button class="copy-btn" data-copy-target="snippet-hero-cli" type="button">Copia</button>
+            </div>
+            <pre class="code-content" id="snippet-hero-cli"><span class="comment"># Su Arch Linux (Pacman):</span>
+<span class="cmd">sudo pacman</span> <span class="flag">-Sy</span> manga-cli
+
+<span class="comment"># Oppure universale con Node.js (v18+):</span>
+<span class="cmd">git clone</span> https://github.com/bhaki18/manga-cli.git && <span class="cmd">cd</span> manga-cli && <span class="cmd">sudo npm link</span></pre>
+          </div>
+
+          <div class="tlauncher-platforms-row">
+            <span>Guide disponibili per:</span>
+            <button class="platform-pill" onclick="selectTabAndScroll('tab-cli')" type="button">🔵 Arch Linux (Pacman)</button>
+            <button class="platform-pill" onclick="selectTabAndScroll('tab-cli')" type="button">🐧 Debian / Ubuntu / Mint</button>
+            <button class="platform-pill" onclick="selectTabAndScroll('tab-cli')" type="button">🪟 Windows (WSL)</button>
+          </div>
         </div>
 
-        <div class="smart-os-footer">
-          <span>Stai cercando una piattaforma diversa?</span>
-          <a href="#install" class="browse-all-link">Sfoglia tutti i download (Android, Windows, Arch, Debian, Fedora) ↓</a>
-        </div>
-      </div>
-
-      <div class="hero-actions">
-        <a href="#tab-android" class="btn btn-primary" onclick="selectTab('tab-android')">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
-            <line x1="12" y1="18" x2="12.01" y2="18"/>
-          </svg>
-          Scarica APK Android
-        </a>
-
-        <a href="#tab-deb" class="btn btn-secondary" onclick="selectTab('tab-deb')">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-            <line x1="8" y1="21" x2="16" y2="21"/>
-            <line x1="12" y1="17" x2="12" y2="21"/>
-          </svg>
-          Desktop (Linux / Windows)
-        </a>
-
-        <a href="#tab-cli" class="btn btn-outline" onclick="selectTab('tab-cli')">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="4 17 10 11 4 5"/>
-            <line x1="12" y1="19" x2="20" y2="19"/>
-          </svg>
-          Manga & Anime CLI
-        </a>
       </div>
 
       <!-- Live Release Status Badges -->
@@ -705,6 +714,59 @@ EOF'
       </div>
     </div>
   </section>
+
+  <!-- Modal: Select Platform (TLauncher Style) -->
+  <div class="modal-overlay" id="platformModal">
+    <div class="platform-modal-box">
+      <button class="modal-close" id="platformModalCloseBtn" type="button" aria-label="Chiudi">&times;</button>
+      <h3 class="platform-modal-title">Seleziona la tua piattaforma</h3>
+      <p class="platform-modal-subtitle">Scegli il tuo sistema operativo per avviare il download di Manga GUI</p>
+
+      <div class="platform-grid">
+        <!-- Windows -->
+        <div class="platform-card" id="cardPlatformWin">
+          <div class="platform-icon-large">🪟</div>
+          <div class="platform-name">Windows</div>
+          <div class="platform-meta">64-bit Standalone (.exe)</div>
+          <div class="platform-actions">
+            <button class="btn btn-primary btn-sm" onclick="selectTabAndCloseModal('tab-win')" type="button">
+              Istruzioni & Download
+            </button>
+          </div>
+        </div>
+
+        <!-- Linux -->
+        <div class="platform-card" id="cardPlatformLinux">
+          <div class="platform-icon-large">🐧</div>
+          <div class="platform-name">Linux</div>
+          <div class="platform-meta">Debian, Ubuntu, Arch, Fedora</div>
+          <div class="platform-actions">
+            <a href="https://bhaki18.github.io/manga-cli/deb/manga-gui_1.1.4-1_amd64.deb" id="modalDebLink" class="btn btn-primary btn-sm" download>
+              Scarica .deb (Ubuntu/Mint)
+            </a>
+            <a href="https://bhaki18.github.io/manga-cli/x86_64/manga-gui-bin-1.1.4-1-x86_64.pkg.tar.zst" id="modalArchLink" class="btn btn-secondary btn-sm" download>
+              Pacchetto Arch (.pkg)
+            </a>
+          </div>
+        </div>
+
+        <!-- Android -->
+        <div class="platform-card" id="cardPlatformAndroid">
+          <div class="platform-icon-large">📱</div>
+          <div class="platform-name">Android</div>
+          <div class="platform-meta">Smartphone & Tablet (.apk)</div>
+          <div class="platform-actions">
+            <a href="https://bhaki18.github.io/manga-cli/android/app-release.apk" class="btn btn-primary btn-sm btn-download-apk" download>
+              Scarica APK Diretto
+            </a>
+            <button class="btn btn-secondary btn-sm" onclick="openQrFromPlatformModal()" type="button">
+              Mostra QR Code
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Modal for QR Code -->
   <div class="modal-overlay" id="qrModal">

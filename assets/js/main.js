@@ -1,8 +1,8 @@
 /**
  * Manga Ecosystem Showcase - Client Engine
  * Dynamically queries https://bhaki18.github.io/manga-cli/ gh-pages manifests,
- * detects the visitor's operating system, and provides a customized experience
- * between Manga GUI (desktop/mobile) and Manga CLI (terminal).
+ * detects visitor OS for seamless 1-click downloads (TLauncher-style),
+ * and provides experience switching between GUI and CLI.
  */
 
 // Default Fallback Configs (used if network is offline or throttled)
@@ -41,12 +41,13 @@ document.addEventListener('DOMContentLoaded', () => {
   initExperienceSwitcher();
   initTabs();
   initCopyButtons();
+  initPlatformModal();
   initQrModal();
   initMobileMenu();
-  renderSmartOsRecommendation();
+  applyHeroDownloadTarget();
   initLiveVersions();
 
-  // Auto-activate the detected OS tab in the install wizard
+  // Auto-activate the detected OS tab in the install wizard silently
   if (userOS && userOS.defaultTab) {
     selectTab(userOS.defaultTab);
   }
@@ -67,7 +68,7 @@ function detectUserOS() {
       icon: '📱',
       type: 'mobile',
       defaultTab: 'tab-android',
-      description: 'Smartphone / Tablet Android'
+      label: 'Android (APK)'
     };
   }
 
@@ -75,11 +76,11 @@ function detectUserOS() {
   if (/iphone|ipad|ipod/i.test(ua)) {
     return {
       id: 'ios',
-      name: 'iOS (Apple)',
+      name: 'iOS',
       icon: '🍎',
       type: 'mobile',
       defaultTab: 'tab-android',
-      description: 'Dispositivo Apple iOS'
+      label: 'Apple iOS'
     };
   }
 
@@ -91,7 +92,7 @@ function detectUserOS() {
       icon: '🪟',
       type: 'desktop',
       defaultTab: 'tab-win',
-      description: 'PC Windows (64-bit)'
+      label: 'Windows (x64)'
     };
   }
 
@@ -103,7 +104,7 @@ function detectUserOS() {
       icon: '🍎',
       type: 'desktop',
       defaultTab: 'tab-cli',
-      description: 'Apple Mac (macOS)'
+      label: 'macOS'
     };
   }
 
@@ -116,17 +117,17 @@ function detectUserOS() {
         icon: '🔵',
         type: 'desktop',
         defaultTab: 'tab-arch',
-        description: 'Arch Linux / Manjaro / EndeavourOS'
+        label: 'Arch Linux (.pkg)'
       };
     }
     if (/ubuntu|debian|mint|pop/i.test(ua)) {
       return {
         id: 'debian',
         name: 'Debian / Ubuntu',
-        icon: '🟠',
+        icon: '🐧',
         type: 'desktop',
         defaultTab: 'tab-deb',
-        description: 'Ubuntu, Debian, Linux Mint, Pop!_OS'
+        label: 'Linux (.deb)'
       };
     }
     return {
@@ -135,18 +136,75 @@ function detectUserOS() {
       icon: '🐧',
       type: 'desktop',
       defaultTab: 'tab-deb',
-      description: 'Sistema Operativo Linux (x64)'
+      label: 'Linux (.deb)'
     };
   }
 
   return {
     id: 'unknown',
     name: 'Computer',
-    icon: '💻',
+    icon: '⬇',
     type: 'desktop',
     defaultTab: 'tab-deb',
-    description: 'Sistema Desktop Rilevato'
+    label: 'Desktop'
   };
+}
+
+/**
+ * Configure the main TLauncher-style button for the visitor's OS
+ */
+function applyHeroDownloadTarget() {
+  const btn = document.getElementById('btnHeroDownload');
+  const iconEl = document.getElementById('heroTlIcon');
+  const subEl = document.getElementById('heroTlSub');
+  if (!btn || !userOS) return;
+
+  const deskVer = currentData.desktop.version;
+  const mobVer = currentData.mobile.version;
+  const debUrl = currentData.desktop.debUrl;
+  const archUrl = currentData.desktop.archUrl;
+  const apkUrl = currentData.mobile.apkUrl;
+
+  if (iconEl) iconEl.textContent = userOS.icon;
+
+  if (userOS.id === 'android') {
+    btn.href = apkUrl;
+    btn.setAttribute('download', `manga-gui-${mobVer}.apk`);
+    btn.onclick = null;
+    if (subEl) subEl.textContent = `Per Android (APK) • v${mobVer}`;
+  } else if (userOS.id === 'arch') {
+    btn.href = archUrl;
+    btn.setAttribute('download', `manga-gui-bin-${deskVer}-x86_64.pkg.tar.zst`);
+    btn.onclick = null;
+    if (subEl) subEl.textContent = `Per Arch Linux (.pkg) • v${deskVer}`;
+  } else if (userOS.id === 'windows') {
+    btn.href = '#tab-win';
+    btn.removeAttribute('download');
+    btn.onclick = (e) => {
+      e.preventDefault();
+      selectTabAndScroll('tab-win');
+    };
+    if (subEl) subEl.textContent = `Per Windows (x64) • v${deskVer}`;
+  } else {
+    // Default Linux (.deb)
+    btn.href = debUrl;
+    btn.setAttribute('download', `manga-gui_${deskVer}_amd64.deb`);
+    btn.onclick = null;
+    if (subEl) subEl.textContent = `Per Linux (Ubuntu / Debian .deb) • v${deskVer}`;
+  }
+
+  // Pre-highlight recommended card in platform modal
+  document.querySelectorAll('.platform-card').forEach(c => c.classList.remove('recommended'));
+  if (userOS.id === 'windows') {
+    const cardWin = document.getElementById('cardPlatformWin');
+    if (cardWin) cardWin.classList.add('recommended');
+  } else if (userOS.id === 'android') {
+    const cardAnd = document.getElementById('cardPlatformAndroid');
+    if (cardAnd) cardAnd.classList.add('recommended');
+  } else {
+    const cardLin = document.getElementById('cardPlatformLinux');
+    if (cardLin) cardLin.classList.add('recommended');
+  }
 }
 
 /**
@@ -154,6 +212,9 @@ function detectUserOS() {
  */
 function initExperienceSwitcher() {
   const buttons = document.querySelectorAll('.switcher-btn');
+  const guiHub = document.getElementById('heroGuiHub');
+  const cliHub = document.getElementById('heroCliHub');
+
   buttons.forEach(btn => {
     btn.addEventListener('click', () => {
       const exp = btn.getAttribute('data-exp');
@@ -163,10 +224,15 @@ function initExperienceSwitcher() {
       buttons.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
 
-      renderSmartOsRecommendation();
-
-      // Highlight corresponding app card
-      highlightAppCard(exp);
+      if (exp === 'cli') {
+        if (guiHub) guiHub.style.display = 'none';
+        if (cliHub) cliHub.classList.add('active');
+        highlightAppCard('cli');
+      } else {
+        if (guiHub) guiHub.style.display = 'flex';
+        if (cliHub) cliHub.classList.remove('active');
+        highlightAppCard('gui');
+      }
     });
   });
 }
@@ -198,195 +264,6 @@ function highlightAppCard(exp) {
       }
     });
   }
-}
-
-/**
- * Render the customized Smart Recommendation box in the Hero
- */
-function renderSmartOsRecommendation() {
-  const osLabel = document.getElementById('osDetectedBadge');
-  const contentBox = document.getElementById('smartOsContent');
-  if (!contentBox || !userOS) return;
-
-  if (osLabel) {
-    osLabel.innerHTML = `<span class="os-icon">${userOS.icon}</span> <span>${userOS.description}</span>`;
-  }
-
-  const deskVer = currentData.desktop.version;
-  const mobVer = currentData.mobile.version;
-  const debUrl = currentData.desktop.debUrl;
-  const archUrl = currentData.desktop.archUrl;
-  const apkUrl = currentData.mobile.apkUrl;
-
-  let html = '';
-
-  if (activeExperience === 'gui') {
-    // GUI recommendations
-    if (userOS.id === 'android') {
-      html = `
-        <h3 class="smart-os-title">
-          <span>📱</span> Manga GUI Mobile per Android
-        </h3>
-        <p class="smart-os-desc">
-          App nativa Android con player video ExoPlayer, gesture touch, lettore manga continuo verticale e auto-aggiornamenti in-app.
-        </p>
-        <div class="smart-os-actions">
-          <a href="${apkUrl}" class="btn btn-primary" download>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-              <polyline points="7 10 12 15 17 10"/>
-              <line x1="12" y1="15" x2="12" y2="3"/>
-            </svg>
-            Scarica APK Diretto (v${mobVer})
-          </a>
-          <button class="btn btn-secondary open-qr-modal" type="button">
-            Mostra QR Code
-          </button>
-        </div>
-      `;
-    } else if (userOS.id === 'arch') {
-      html = `
-        <h3 class="smart-os-title">
-          <span>🔵</span> Manga GUI per Arch Linux
-        </h3>
-        <p class="smart-os-desc">
-          Pacchetto binario precompilato <code>.pkg.tar.zst</code> ottimizzato per Arch, Manjaro ed EndeavourOS.
-        </p>
-        <div class="smart-os-actions">
-          <a href="${archUrl}" class="btn btn-primary" download>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-              <polyline points="7 10 12 15 17 10"/>
-              <line x1="12" y1="15" x2="12" y2="3"/>
-            </svg>
-            Scarica Pacchetto Arch (v${deskVer})
-          </a>
-          <button class="btn btn-secondary" onclick="selectTabAndScroll('tab-arch')" type="button">
-            Mostra Comando Pacman
-          </button>
-        </div>
-      `;
-    } else if (userOS.id === 'windows') {
-      html = `
-        <h3 class="smart-os-title">
-          <span>🪟</span> Manga GUI per Windows (x64)
-        </h3>
-        <p class="smart-os-desc">
-          Eseguibile autonomo standalone C# Avalonia per Windows a 64-bit senza dipendenze esterne.
-        </p>
-        <div class="smart-os-actions">
-          <button class="btn btn-primary" onclick="selectTabAndScroll('tab-win')" type="button">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-              <polyline points="7 10 12 15 17 10"/>
-              <line x1="12" y1="15" x2="12" y2="3"/>
-            </svg>
-            Istruzioni Build & Eseguibile Windows
-          </button>
-          <a href="https://github.com/bhaki18/manga-gui" target="_blank" rel="noopener" class="btn btn-secondary">
-            Repo GitHub
-          </a>
-        </div>
-      `;
-    } else {
-      // Default Linux / Debian / Ubuntu
-      html = `
-        <h3 class="smart-os-title">
-          <span>🐧</span> Manga GUI Desktop per Linux (Ubuntu / Debian / Mint)
-        </h3>
-        <p class="smart-os-desc">
-          Pacchetto binario nativo <code>.deb</code> con Fluent Dark Theme, lettore manga e player MPV a 1080p.
-        </p>
-        <div class="smart-os-actions">
-          <a href="${debUrl}" class="btn btn-primary" id="btn-smart-deb" download>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-              <polyline points="7 10 12 15 17 10"/>
-              <line x1="12" y1="15" x2="12" y2="3"/>
-            </svg>
-            Scarica Pacchetto .deb (v${deskVer})
-          </a>
-          <button class="btn btn-secondary" onclick="selectTabAndScroll('tab-deb')" type="button">
-            Comando Terminale Rapido
-          </button>
-          <button class="btn btn-outline btn-sm" onclick="selectTabAndScroll('tab-universal')" type="button">
-            Installer Universale (Fedora/SUSE)
-          </button>
-        </div>
-      `;
-    }
-  } else {
-    // CLI recommendations
-    if (userOS.id === 'arch') {
-      html = `
-        <h3 class="smart-os-title">
-          <span>⚡</span> Manga CLI su Arch Linux (Pacman Repo)
-        </h3>
-        <p class="smart-os-desc">
-          Disponibile direttamente tramite il repository Pacman ufficiale mantenuto su GitHub Pages.
-        </p>
-        <div class="smart-os-actions">
-          <button class="btn btn-primary" onclick="selectTabAndScroll('tab-cli')" type="button">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polyline points="4 17 10 11 4 5"/>
-              <line x1="12" y1="19" x2="20" y2="19"/>
-            </svg>
-            Aggiungi Repository Pacman
-          </button>
-          <a href="https://github.com/bhaki18/manga-cli" target="_blank" rel="noopener" class="btn btn-secondary">
-            Guida Comandi CLI
-          </a>
-        </div>
-      `;
-    } else if (userOS.id === 'windows') {
-      html = `
-        <h3 class="smart-os-title">
-          <span>⚡</span> Manga CLI su Windows (WSL o Node.js)
-        </h3>
-        <p class="smart-os-desc">
-          Manga CLI è progettata per ambienti Unix/Linux. Su Windows è eseguibile al massimo delle prestazioni tramite WSL2 o Node.js.
-        </p>
-        <div class="smart-os-actions">
-          <button class="btn btn-primary" onclick="selectTabAndScroll('tab-cli')" type="button">
-            Installa via Node.js / WSL
-          </button>
-          <button class="btn btn-secondary" onclick="switchExperience('gui')" type="button">
-            Preferisci l'app grafica? Passa a Manga GUI
-          </button>
-        </div>
-      `;
-    } else {
-      // Generic Linux / Mac CLI
-      html = `
-        <h3 class="smart-os-title">
-          <span>⚡</span> Manga & Anime CLI per Linux (Zero Usura Disco)
-        </h3>
-        <p class="smart-os-desc">
-          Scarica le pagine manga direttamente in RAM (<code>/dev/shm</code>) e trasmetti anime in streaming istantaneo su MPV / VLC.
-        </p>
-        <div class="smart-os-actions">
-          <button class="btn btn-primary" onclick="selectTabAndScroll('tab-cli')" type="button">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polyline points="4 17 10 11 4 5"/>
-              <line x1="12" y1="19" x2="20" y2="19"/>
-            </svg>
-            Comandi di Installazione Rapida
-          </button>
-          <a href="https://github.com/bhaki18/manga-cli" target="_blank" rel="noopener" class="btn btn-secondary">
-            Documentazione Comandi
-          </a>
-        </div>
-      `;
-    }
-  }
-
-  contentBox.innerHTML = html;
-  initQrModal(); // Re-bind QR modal listeners for new elements if any
-}
-
-function switchExperience(exp) {
-  const btn = document.querySelector(`.switcher-btn[data-exp="${exp}"]`);
-  if (btn) btn.click();
 }
 
 /**
@@ -426,8 +303,8 @@ async function initLiveVersions() {
     applyMobileData(DEFAULTS.mobile);
   }
 
-  // Refresh recommendation box with live data
-  renderSmartOsRecommendation();
+  // Re-apply Hero CTA with live version tags
+  applyHeroDownloadTarget();
 }
 
 function applyDesktopData(data) {
@@ -438,18 +315,24 @@ function applyDesktopData(data) {
   document.querySelectorAll('.val-desktop-version').forEach(el => el.textContent = `v${version}`);
   
   const debBtn = document.getElementById('btn-download-deb');
+  const modalDeb = document.getElementById('modalDebLink');
+  const finalDebUrl = debUrl.startsWith('http') 
+    ? debUrl 
+    : `https://bhaki18.github.io/manga-cli/${debUrl}`;
+
   if (debBtn) {
-    const finalDebUrl = debUrl.startsWith('http') 
-      ? debUrl 
-      : `https://bhaki18.github.io/manga-cli/${debUrl}`;
     debBtn.href = finalDebUrl;
     debBtn.setAttribute('download', `manga-gui_${version}_amd64.deb`);
   }
+  if (modalDeb) {
+    modalDeb.href = finalDebUrl;
+    modalDeb.setAttribute('download', `manga-gui_${version}_amd64.deb`);
+  }
 
   const archBtn = document.getElementById('btn-download-arch');
-  if (archBtn) {
-    archBtn.href = archUrl;
-  }
+  const modalArch = document.getElementById('modalArchLink');
+  if (archBtn) archBtn.href = archUrl;
+  if (modalArch) modalArch.href = archUrl;
 
   const debSnippet = document.getElementById('snippet-deb');
   if (debSnippet) {
@@ -516,6 +399,56 @@ function selectTabAndScroll(tabId) {
   if (installSection) {
     installSection.scrollIntoView({ behavior: 'smooth' });
   }
+}
+
+function selectTabAndCloseModal(tabId) {
+  const platformModal = document.getElementById('platformModal');
+  if (platformModal) platformModal.classList.remove('active');
+  selectTabAndScroll(tabId);
+}
+
+/**
+ * TLauncher-Style Platform Modal Handlers
+ */
+function initPlatformModal() {
+  const openBtns = document.querySelectorAll('.open-platform-modal');
+  const modal = document.getElementById('platformModal');
+  const closeBtn = document.getElementById('platformModalCloseBtn');
+
+  if (!modal) return;
+
+  openBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      modal.classList.add('active');
+    });
+  });
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      modal.classList.remove('active');
+    });
+  }
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.classList.remove('active');
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('active')) {
+      modal.classList.remove('active');
+    }
+  });
+}
+
+function openQrFromPlatformModal() {
+  const platformModal = document.getElementById('platformModal');
+  if (platformModal) platformModal.classList.remove('active');
+
+  const qrModal = document.getElementById('qrModal');
+  if (qrModal) qrModal.classList.add('active');
 }
 
 /**
