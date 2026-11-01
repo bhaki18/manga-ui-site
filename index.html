@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manga & Anime Ecosystem — Android, Desktop & CLI</title>
+  <meta name="description" content="L'ecosistema open source definitivo per leggere manga e guardare anime: App nativa Android, Manga GUI per Desktop (Linux e Windows) e Manga CLI per il terminale.">
+  <meta name="keywords" content="manga, anime, streaming anime ita, manga reader, manga gui, manga cli, android apk anime, open source, avalonia, kotlin">
+  <meta property="og:title" content="Manga & Anime Ecosystem | bhaki18">
+  <meta property="og:description" content="Suite open source gratuita e senza pubblicità: Android APK, Desktop GUI e CLI da terminale.">
+  <meta property="og:image" content="assets/images/logo.png">
+  <meta property="og:type" content="website">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- Background Ambient Lights -->
+  <div class="ambient-glow-1"></div>
+  <div class="ambient-glow-2"></div>
+  <div class="ambient-glow-3"></div>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="#" class="nav-brand">
+        <img src="assets/images/logo.png" alt="Manga Ecosystem Logo">
+        <span>Manga<span class="gradient-orange">Hub</span></span>
+      </a>
+
+      <ul class="nav-menu">
+        <li><a href="#apps" class="nav-link">Applicazioni</a></li>
+        <li><a href="#install" class="nav-link">Installazione Veloce</a></li>
+        <li><a href="#confronto" class="nav-link">Confronto</a></li>
+        <li><a href="#vantaggi" class="nav-link">Perché Usarlo</a></li>
+        <li><a href="https://github.com/bhaki18" target="_blank" rel="noopener" class="nav-link">GitHub</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="#install" class="btn btn-primary btn-sm">Scarica Ora</a>
+        <button class="menu-toggle" aria-label="Menu" type="button">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="container">
+      <div class="hero-badge">
+        <span class="badge badge-orange">⚡ 100% Open Source • Zero Pubblicità • Senza Server</span>
+      </div>
+
+      <h1 class="hero-title">
+        Guarda Anime. Leggi Manga.<br>
+        <span class="gradient-text">Su Qualsiasi Dispositivo.</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        Una suite completa e moderna sviluppata per la massima velocità: applicazione nativa 
+        <strong>Android</strong> con player ExoPlayer, client desktop fluido in <strong>C# Avalonia</strong> per Linux e Windows, 
+        e una potentissima <strong>CLI</strong> con caching in RAM per il terminale.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#tab-android" class="btn btn-primary" onclick="selectTab('tab-android')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+            <line x1="12" y1="18" x2="12.01" y2="18"/>
+          </svg>
+          Scarica APK Android
+        </a>
+
+        <a href="#tab-deb" class="btn btn-secondary" onclick="selectTab('tab-deb')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+            <line x1="8" y1="21" x2="16" y2="21"/>
+            <line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+          Desktop (Linux / Windows)
+        </a>
+
+        <a href="#tab-cli" class="btn btn-outline" onclick="selectTab('tab-cli')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="4 17 10 11 4 5"/>
+            <line x1="12" y1="19" x2="20" y2="19"/>
+          </svg>
+          Manga & Anime CLI
+        </a>
+      </div>
+
+      <!-- Live Release Status Badges -->
+      <div class="live-tags">
+        <div class="live-tag">
+          <span class="live-indicator"></span>
+          <span>Android: <strong class="val-mobile-version">v1.0.9</strong></span>
+        </div>
+        <div class="live-tag">
+          <span class="live-indicator"></span>
+          <span>Desktop: <strong class="val-desktop-version">v1.1.4-1</strong></span>
+        </div>
+        <div class="live-tag">
+          <span class="live-indicator"></span>
+          <span>CLI: <strong>v2.1.0-1</strong></span>
+        </div>
+        <div class="live-tag">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+          </svg>
+          <span>GitHub Pages Hosted</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Apps Deep-Dive Section -->
+  <section class="ecosystem-section" id="apps">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge badge-orange section-tag">Tre Esperienze, Un Unico Ecosistema</span>
+        <h2 class="section-title">Scegli la versione perfetta per te</h2>
+        <p class="section-desc">Dal palmo della tua mano allo schermo 4K del PC, fino al terminale per i puristi di Linux.</p>
+      </div>
+
+      <div class="apps-grid">
+        
+        <!-- CARD 1: Mobile -->
+        <div class="app-card">
+          <div class="card-top">
+            <div class="app-icon-wrap icon-orange">
+              📱
+            </div>
+            <span class="badge badge-orange val-mobile-version">v1.0.9</span>
+          </div>
+
+          <h3 class="app-title">Manga GUI Mobile</h3>
+          <p class="app-tech">Android nativo • Kotlin & Jetpack Compose</p>
+          <p class="app-desc">
+            Pensata da zero per smartphone e tablet Android. Interfaccia scura elegante, gesture swipe, streaming fluido e download con un tap.
+          </p>
+
+          <ul class="feature-list">
+            <li class="feature-item orange">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>Player Jetpack Media3 (ExoPlayer)</strong> con streaming HLS, MP4 e rotazione automatica.</span>
+            </li>
+            <li class="feature-item orange">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>Lettore Webtoon Continuo</strong> con scorrimento verticale e precaricamento Coil in cache.</span>
+            </li>
+            <li class="feature-item orange">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>Scaricati Offline</strong> per guardare anime e leggere manga senza connessione internet.</span>
+            </li>
+            <li class="feature-item orange">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>Auto-Updater In-App</strong>: controlla e notifica i nuovi APK direttamente in background.</span>
+            </li>
+          </ul>
+
+          <div class="card-actions">
+            <a href="https://bhaki18.github.io/manga-cli/android/app-release.apk" class="btn btn-primary btn-download-apk" download>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              Scarica APK Diretto
+            </a>
+            <button class="qr-link-btn open-qr-modal" type="button">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="7" height="7"/>
+                <rect x="14" y="3" width="7" height="7"/>
+                <rect x="14" y="14" width="7" height="7"/>
+                <rect x="3" y="14" width="7" height="7"/>
+              </svg>
+              Mostra QR Code per Smartphone
+            </button>
+          </div>
+        </div>
+
+        <!-- CARD 2: Desktop GUI -->
+        <div class="app-card">
+          <div class="card-top">
+            <div class="app-icon-wrap icon-cyan">
+              🖥️
+            </div>
+            <span class="badge badge-cyan val-desktop-version">v1.1.4-1</span>
+          </div>
+
+          <h3 class="app-title">Manga GUI Desktop</h3>
+          <p class="app-tech">Linux & Windows • C# Avalonia UI • MVVM</p>
+          <p class="app-desc">
+            Interfaccia grafica desktop ultra reattiva e moderna (Fluent Dark Theme). Sfrutta la potenza di MPV per streaming a 1080p senza lag.
+          </p>
+
+          <ul class="feature-list">
+            <li class="feature-item cyan">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>Motore MPV Nativo</strong>: riproduzione ad altissime prestazioni con bypass intelligente di referer.</span>
+            </li>
+            <li class="feature-item cyan">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>Pacchetti Pronti all'Uso</strong>: `.deb` (Debian/Ubuntu), Arch Linux (`.pkg.tar.zst`) ed eseguibile Windows.</span>
+            </li>
+            <li class="feature-item cyan">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>Catalogo & Cronologia</strong>: traccia i capitoli letti e gli episodi visti automaticamente.</span>
+            </li>
+            <li class="feature-item cyan">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>Supporto Multi-Sorgente</strong>: aggrega contenuti da One Piece Power, MangaDex, Mangapill e altri.</span>
+            </li>
+          </ul>
+
+          <div class="card-actions">
+            <a href="https://bhaki18.github.io/manga-cli/deb/manga-gui_1.1.4-1_amd64.deb" id="btn-download-deb" class="btn btn-secondary">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              Scarica Pacchetto .deb (Ubuntu/Debian)
+            </a>
+            <a href="#tab-arch" class="btn btn-outline btn-sm" onclick="selectTab('tab-arch')">
+              Vedi Opzioni Arch / Windows
+            </a>
+          </div>
+        </div>
+
+        <!-- CARD 3: CLI -->
+        <div class="app-card">
+          <div class="card-top">
+            <div class="app-icon-wrap icon-purple">
+              ⚡
+            </div>
+            <span class="badge badge-purple">v2.1.0-1</span>
+          </div>
+
+          <h3 class="app-title">Manga & Anime CLI</h3>
+          <p class="app-tech">Terminale Linux • RAM Caching • Node.js / Shell</p>
+          <p class="app-desc">
+            La soluzione definitiva da riga di comando. Cerca, avvia lo streaming immediato e sfoglia i manga alla velocità della luce.
+          </p>
+
+          <ul class="feature-list">
+            <li class="feature-item purple">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>Zero Usura Disco (RAM Caching)</strong>: le pagine vengono caricate su `/dev/shm` e distrutte all'uscita.</span>
+            </li>
+            <li class="feature-item purple">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>Store Estensioni `manga-cli sources`</strong>: esplora e installa nuovi provider della community.</span>
+            </li>
+            <li class="feature-item purple">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>Doppio Audio & 30+ Lingue</strong>: supporto completo ITA doppiato e SUB ITA con flag interattive.</span>
+            </li>
+            <li class="feature-item purple">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>Repository Arch Dedicato</strong>: integrabile in `/etc/pacman.conf` per aggiornamenti automatici.</span>
+            </li>
+          </ul>
+
+          <div class="card-actions">
+            <a href="#tab-cli" class="btn btn-secondary" onclick="selectTab('tab-cli')">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="4 17 10 11 4 5"/>
+                <line x1="12" y1="19" x2="20" y2="19"/>
+              </svg>
+              Comandi Rapidi da Terminale
+            </a>
+            <a href="https://github.com/bhaki18/manga-cli" target="_blank" rel="noopener" class="btn btn-outline btn-sm">
+              Esplora Repository GitHub
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Quick Install Wizard -->
+  <section class="install-section" id="install">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge badge-cyan section-tag">Installazione Alla Portata di Tutti</span>
+        <h2 class="section-title">Come installare sul tuo sistema</h2>
+        <p class="section-desc">Seleziona il tuo sistema operativo e segui la procedura in un solo passaggio.</p>
+      </div>
+
+      <div class="install-wrapper">
+        <!-- Tabs Header -->
+        <div class="tabs-nav">
+          <button class="tab-btn active" data-target="tab-android" type="button">
+            📱 Android (APK)
+          </button>
+          <button class="tab-btn" data-target="tab-deb" type="button">
+            🟠 Ubuntu / Debian (.deb)
+          </button>
+          <button class="tab-btn" data-target="tab-arch" type="button">
+            🔵 Arch Linux / Manjaro
+          </button>
+          <button class="tab-btn" data-target="tab-universal" type="button">
+            🟢 Fedora / openSUSE / Altri Linux
+          </button>
+          <button class="tab-btn" data-target="tab-win" type="button">
+            🪟 Windows (GUI)
+          </button>
+          <button class="tab-btn" data-target="tab-cli" type="button">
+            ⚡ Manga CLI (Terminale)
+          </button>
+        </div>
+
+        <!-- TAB CONTENT: ANDROID -->
+        <div class="tab-pane active" id="tab-android">
+          <div class="tab-content-grid">
+            <div class="tab-info">
+              <h3 class="pane-heading">Manga GUI per Android</h3>
+              <p class="pane-desc">
+                Non serve il Play Store. L'app include un sistema di auto-aggiornamento interno che ti notificherà ogni nuova versione non appena pubblicata.
+              </p>
+
+              <ol style="margin-left: 20px; color: var(--text-secondary); margin-bottom: 24px; line-height: 1.8;">
+                <li>Clicca sul pulsante sottostante per scaricare il file <code>app-release.apk</code>.</li>
+                <li>Se il browser te lo chiede, consenti il download da questa sorgente.</li>
+                <li>Apri il file scaricato e premi <strong>Installa</strong> (se necessario, abilita <em>Origini Sconosciute</em> nelle impostazioni Android).</li>
+                <li>Fatto! Apri l'app e goditi lo streaming e la lettura immediata.</li>
+              </ol>
+
+              <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                <a href="https://bhaki18.github.io/manga-cli/android/app-release.apk" class="btn btn-primary btn-download-apk" download>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7 10 12 15 17 10"/>
+                    <line x1="12" y1="15" x2="12" y2="3"/>
+                  </svg>
+                  Scarica APK Diretto (<span class="val-mobile-version">v1.0.9</span>)
+                </a>
+              </div>
+            </div>
+
+            <div class="qr-card">
+              <h4 style="font-size: 1.1rem; color: #fff;">Inquadra dallo Smartphone</h4>
+              <img class="dynamic-qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=https://bhaki18.github.io/manga-cli/android/app-release.apk&bgcolor=11141a&color=f47521&margin=8" alt="QR Code Download APK">
+              <p class="qr-caption">Punta la fotocamera del tuo telefono per scaricare l'APK direttamente.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB CONTENT: DEBIAN / UBUNTU -->
+        <div class="tab-pane" id="tab-deb">
+          <div class="tab-single-col">
+            <div>
+              <h3 class="pane-heading">Ubuntu, Debian, Linux Mint, Pop!_OS (.deb)</h3>
+              <p class="pane-desc">
+                Pacchetto binario precompilato nativo a 64-bit per tutte le distribuzioni basate su Debian.
+              </p>
+            </div>
+
+            <div style="display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 12px;">
+              <a href="https://bhaki18.github.io/manga-cli/deb/manga-gui_1.1.4-1_amd64.deb" class="btn btn-primary" download>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                  <polyline points="7 10 12 15 17 10"/>
+                  <line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                Scarica Pacchetto .deb (<span class="val-desktop-version">v1.1.4-1</span>)
+              </a>
+            </div>
+
+            <div class="code-box">
+              <div class="code-header">
+                <div class="code-dots">
+                  <span></span><span></span><span></span>
+                </div>
+                <span>Terminal Install (One-Liner)</span>
+                <button class="copy-btn" data-copy-target="snippet-deb" type="button">Copia</button>
+              </div>
+              <pre class="code-content" id="snippet-deb"><span class="comment"># 1. Scarica e installa il pacchetto .deb con le relative dipendenze</span>
+<span class="cmd">curl</span> <span class="flag">-LO</span> https://bhaki18.github.io/manga-cli/deb/manga-gui_1.1.4-1_amd64.deb
+<span class="cmd">sudo apt</span> install ./manga-gui_1.1.4-1_amd64.deb
+
+<span class="comment"># 2. Avvia l'applicazione o cercala nel menu di sistema</span>
+<span class="cmd">manga-gui</span></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB CONTENT: ARCH LINUX -->
+        <div class="tab-pane" id="tab-arch">
+          <div class="tab-single-col">
+            <div>
+              <h3 class="pane-heading">Arch Linux, Manjaro, EndeavourOS</h3>
+              <p class="pane-desc">
+                Installa direttamente il pacchetto <code>.pkg.tar.zst</code> oppure compila da sorgente tramite makepkg.
+              </p>
+            </div>
+
+            <div class="code-box">
+              <div class="code-header">
+                <div class="code-dots">
+                  <span></span><span></span><span></span>
+                </div>
+                <span>Pacman - Manga GUI Precompilato</span>
+                <button class="copy-btn" data-copy-target="snippet-arch-gui" type="button">Copia</button>
+              </div>
+              <pre class="code-content" id="snippet-arch-gui"><span class="comment"># Scarica il pacchetto Pacman e installalo con un solo comando:</span>
+<span class="cmd">sudo pacman</span> <span class="flag">-U</span> https://bhaki18.github.io/manga-cli/x86_64/manga-gui-bin-1.1.4-1-x86_64.pkg.tar.zst</pre>
+            </div>
+
+            <div class="code-box">
+              <div class="code-header">
+                <div class="code-dots">
+                  <span></span><span></span><span></span>
+                </div>
+                <span>Oppure compila da sorgente con makepkg</span>
+                <button class="copy-btn" data-copy-target="snippet-arch-makepkg" type="button">Copia</button>
+              </div>
+              <pre class="code-content" id="snippet-arch-makepkg"><span class="cmd">git clone</span> https://github.com/bhaki18/manga-gui.git
+<span class="cmd">cd</span> manga-gui
+<span class="cmd">makepkg</span> <span class="flag">-si</span></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB CONTENT: FEDORA & UNIVERSAL -->
+        <div class="tab-pane" id="tab-universal">
+          <div class="tab-single-col">
+            <div>
+              <h3 class="pane-heading">Fedora, openSUSE, Void, Alpine & Altre Distribuzioni</h3>
+              <p class="pane-desc">
+                L'installer universale rileva automaticamente il gestore di pacchetti del tuo sistema (<code>dnf</code>, <code>zypper</code>, <code>pacman</code>, <code>xbps</code>, <code>apk</code>), installa le dipendenze essenziali e configura l'icona nel menu desktop.
+              </p>
+            </div>
+
+            <div class="code-box">
+              <div class="code-header">
+                <div class="code-dots">
+                  <span></span><span></span><span></span>
+                </div>
+                <span>Universal Linux Installer</span>
+                <button class="copy-btn" data-copy-target="snippet-universal" type="button">Copia</button>
+              </div>
+              <pre class="code-content" id="snippet-universal"><span class="comment"># Clona il repository ed esegui l'installer universale:</span>
+<span class="cmd">git clone</span> https://github.com/bhaki18/manga-gui.git
+<span class="cmd">cd</span> manga-gui
+<span class="cmd">sudo ./install.sh</span>
+
+<span class="comment"># Per disinstallare in qualsiasi momento:</span>
+<span class="cmd">./uninstall.sh</span></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB CONTENT: WINDOWS -->
+        <div class="tab-pane" id="tab-win">
+          <div class="tab-single-col">
+            <div>
+              <h3 class="pane-heading">Manga GUI per Windows (x64)</h3>
+              <p class="pane-desc">
+                Grazie al motore Avalonia UI cross-platform, Manga GUI è compilabile in un eseguibile autonomo nativo per Windows a 64-bit senza dover installare runtime esterne.
+              </p>
+            </div>
+
+            <div class="code-box">
+              <div class="code-header">
+                <div class="code-dots">
+                  <span></span><span></span><span></span>
+                </div>
+                <span>Compilazione Standalone Windows (.exe autonomo)</span>
+                <button class="copy-btn" data-copy-target="snippet-win" type="button">Copia</button>
+              </div>
+              <pre class="code-content" id="snippet-win"><span class="comment"># Clona il repo ed esegui la pubblicazione standalone in .NET 10:</span>
+<span class="cmd">git clone</span> https://github.com/bhaki18/manga-gui.git
+<span class="cmd">cd</span> manga-gui
+<span class="cmd">dotnet publish</span> MangaGui.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -o ./publish/win-x64
+
+<span class="comment"># Troverai l'eseguibile autonomo pronto all'uso in:</span>
+<span class="comment"># ./publish/win-x64/MangaGui.exe</span></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB CONTENT: CLI -->
+        <div class="tab-pane" id="tab-cli">
+          <div class="tab-single-col">
+            <div>
+              <h3 class="pane-heading">Manga CLI & Anime CLI per Terminale</h3>
+              <p class="pane-desc">
+                Scegli tra l'installazione nativa tramite il repository Pacman personalizzato per Arch Linux oppure l'installazione universale con Node.js su qualsiasi sistema operativo.
+              </p>
+            </div>
+
+            <div class="code-box">
+              <div class="code-header">
+                <div class="code-dots">
+                  <span></span><span></span><span></span>
+                </div>
+                <span>Opzione 1: Repository Pacman Ufficiale (Arch / Manjaro)</span>
+                <button class="copy-btn" data-copy-target="snippet-cli-pacman" type="button">Copia</button>
+              </div>
+              <pre class="code-content" id="snippet-cli-pacman"><span class="comment"># 1. Aggiungi il repository a /etc/pacman.conf:</span>
+<span class="cmd">sudo bash -c</span> 'cat &lt;&lt;EOF &gt;&gt; /etc/pacman.conf
+
+[manga-cli]
+SigLevel = Optional TrustAll
+Server = https://bhaki18.github.io/manga-cli/\$arch
+EOF'
+
+<span class="comment"># 2. Sincronizza i repository e installa:</span>
+<span class="cmd">sudo pacman</span> <span class="flag">-Sy</span> manga-cli
+
+<span class="comment"># 3. Avvia il client interattivo:</span>
+<span class="cmd">manga-cli</span>
+<span class="comment"># oppure in modalità anime:</span>
+<span class="cmd">anime-cli</span></pre>
+            </div>
+
+            <div class="code-box">
+              <div class="code-header">
+                <div class="code-dots">
+                  <span></span><span></span><span></span>
+                </div>
+                <span>Opzione 2: Installazione Universale con Node.js (v18+)</span>
+                <button class="copy-btn" data-copy-target="snippet-cli-npm" type="button">Copia</button>
+              </div>
+              <pre class="code-content" id="snippet-cli-npm"><span class="comment"># Clona e collega globalmente via npm:</span>
+<span class="cmd">git clone</span> https://github.com/bhaki18/manga-cli.git
+<span class="cmd">cd</span> manga-cli
+<span class="cmd">npm install</span>
+<span class="cmd">sudo npm link</span>
+
+<span class="comment"># Ora puoi invocare i comandi ovunque:</span>
+<span class="cmd">manga-cli "one piece" --lang it</span>
+<span class="cmd">anime-cli "demon slayer" --dub</span></pre>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature Comparison Table -->
+  <section class="comparison-section" id="confronto">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge badge-purple section-tag">Trasparenza Totale</span>
+        <h2 class="section-title">Confronto Funzionalità</h2>
+        <p class="section-desc">Tutte le feature disponibili a seconda della versione che preferisci utilizzare.</p>
+      </div>
+
+      <div class="table-wrapper">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Funzionalità</th>
+              <th>Manga GUI Mobile (Android)</th>
+              <th>Manga GUI (Desktop)</th>
+              <th>Manga CLI (Terminale)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-feature">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+                Streaming Anime 1080p
+              </td>
+              <td><span class="check-icon">✓ Jetpack Media3 (ExoPlayer)</span></td>
+              <td><span class="check-icon">✓ Player MPV Nativo</span></td>
+              <td><span class="check-icon">✓ MPV / VLC / FFPlay</span></td>
+            </tr>
+            <tr>
+              <td class="col-feature">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                Lettore Manga
+              </td>
+              <td><span class="check-icon">✓ Webtoon Continuo Verticale</span></td>
+              <td><span class="check-icon">✓ Visualizzatore Fluido</span></td>
+              <td><span class="check-icon">✓ FEH / SXIV / Loupe</span></td>
+            </tr>
+            <tr>
+              <td class="col-feature">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download per Uso Offline
+              </td>
+              <td><span class="check-icon">✓ In Memoria Interna</span></td>
+              <td><span class="check-icon">✓ Cartella ~/.config/</span></td>
+              <td><span class="check-icon">✓ Singoli o Interi Volumi</span></td>
+            </tr>
+            <tr>
+              <td class="col-feature">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+                RAM Caching (/dev/shm)
+              </td>
+              <td><span class="cross-icon">— (Coil Disk Cache)</span></td>
+              <td><span class="cross-icon">— (Stream buffer MPV)</span></td>
+              <td><span class="check-icon">✓ Zero Usura SSD</span></td>
+            </tr>
+            <tr>
+              <td class="col-feature">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+                Aggiornamenti Automatici
+              </td>
+              <td><span class="check-icon">✓ In-App Updater integrato</span></td>
+              <td><span class="check-icon">✓ Tramite Gestore Pacchetti</span></td>
+              <td><span class="check-icon">✓ Pacman / Git Update</span></td>
+            </tr>
+            <tr>
+              <td class="col-feature">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                Plugin & Fonti Custom
+              </td>
+              <td><span class="check-icon">✓ Provider Multipli Built-in</span></td>
+              <td><span class="check-icon">✓ Provider Multipli Built-in</span></td>
+              <td><span class="check-icon">✓ Store Estensioni `manga-cli sources`</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Advantages & Highlights -->
+  <section class="highlights-section" id="vantaggi">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge badge-green section-tag">La Filosofia</span>
+        <h2 class="section-title">Costruito per la Comunità</h2>
+        <p class="section-desc">Niente pubblicità invasive, niente cookie wall, nessun tracciamento. Solo puro intrattenimento.</p>
+      </div>
+
+      <div class="highlights-grid">
+        <div class="highlight-box">
+          <div class="highlight-icon">🛡️</div>
+          <h3 class="highlight-title">Zero Tracciamento & Pubblicità</h3>
+          <p class="highlight-text">
+            I siti convenzionali sono sommersi da banner, popup e miner di cryptovalute. Questa suite effettua richieste pulite direttamente ai media server, bypassando qualsiasi contenuto promozionale.
+          </p>
+        </div>
+
+        <div class="highlight-box">
+          <div class="highlight-icon">⚡</div>
+          <h3 class="highlight-title">Prestazioni & Reattività</h3>
+          <p class="highlight-text">
+            Dall'architettura nativa in Kotlin con Jetpack Compose su Android al rendering accelerato via hardware di Avalonia UI e MPV su PC: ogni singola azione risponde in una frazione di secondo.
+          </p>
+        </div>
+
+        <div class="highlight-box">
+          <div class="highlight-icon">🌐</div>
+          <h3 class="highlight-title">100% Architettura Serverless</h3>
+          <p class="highlight-text">
+            Non c'è un server centrale proprietario che può andare offline o collezionare i tuoi dati. I binari e i manifest sono distribuiti direttamente su GitHub Pages con uptime e velocità globale garantita.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal for QR Code -->
+  <div class="modal-overlay" id="qrModal">
+    <div class="modal-box">
+      <button class="modal-close" id="modalCloseBtn" type="button" aria-label="Chiudi">&times;</button>
+      <h3 style="margin-bottom: 8px;">Scansiona per Scaricare</h3>
+      <p style="font-size: 0.9rem; color: var(--text-secondary);">
+        Inquadra il codice con la fotocamera del tuo smartphone per avviare subito il download dell'APK.
+      </p>
+      <img class="modal-qr-img dynamic-qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=https://bhaki18.github.io/manga-cli/android/app-release.apk&bgcolor=11141a&color=f47521&margin=8" alt="QR Code Android APK">
+      <p style="font-size: 0.85rem; color: var(--accent-orange); font-weight: 600;">
+        Versione APK: <span class="val-mobile-version">v1.0.9</span>
+      </p>
+    </div>
+  </div>
+
+  <!-- Toast Notification Wrapper -->
+  <div class="toast-container"></div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <img src="assets/images/logo.png" alt="Manga Ecosystem Logo">
+            <span>Manga<span class="gradient-orange">Hub</span></span>
+          </div>
+          <p class="footer-desc">
+            Suite open-source e non-profit progettata per offrire un accesso pulito, rapido e senza distrazioni al mondo di manga e anime.
+          </p>
+          <p style="font-size: 0.82rem; color: var(--text-muted);">
+            Creato e mantenuto con ❤️ da <strong><a href="https://github.com/bhaki18" target="_blank" rel="noopener">bhaki18 (Angelo Del Piano)</a></strong>.
+          </p>
+        </div>
+
+        <div class="footer-links-grid" id="repos">
+          <div>
+            <h4 class="footer-col-title">Progetti GitHub</h4>
+            <ul class="footer-list">
+              <li><a href="https://github.com/bhaki18/manga-gui-mobile" target="_blank" rel="noopener">manga-gui-mobile (Android)</a></li>
+              <li><a href="https://github.com/bhaki18/manga-gui" target="_blank" rel="noopener">manga-gui (Desktop Linux/Win)</a></li>
+              <li><a href="https://github.com/bhaki18/manga-cli" target="_blank" rel="noopener">manga-cli (Terminale)</a></li>
+              <li><a href="https://github.com/bhaki18/manga-ui-site" target="_blank" rel="noopener">manga-ui-site (Sorgente Sito)</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="footer-col-title">Download Diretti</h4>
+            <ul class="footer-list">
+              <li><a href="https://bhaki18.github.io/manga-cli/android/app-release.apk" download>Android APK (.apk)</a></li>
+              <li><a href="https://bhaki18.github.io/manga-cli/deb/manga-gui_1.1.4-1_amd64.deb" download>Debian / Ubuntu (.deb)</a></li>
+              <li><a href="https://bhaki18.github.io/manga-cli/x86_64/manga-gui-bin-1.1.4-1-x86_64.pkg.tar.zst" download>Arch Linux (.pkg.tar.zst)</a></li>
+              <li><a href="https://bhaki18.github.io/manga-cli/version.json" target="_blank" rel="noopener">Manifest Versioni (JSON)</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="footer-col-title">Licenze</h4>
+            <ul class="footer-list">
+              <li><a href="https://github.com/bhaki18/manga-cli/blob/main/LICENSE" target="_blank" rel="noopener">manga-cli (MIT License)</a></li>
+              <li><a href="https://github.com/bhaki18/manga-gui/blob/main/LICENSE" target="_blank" rel="noopener">manga-gui (GPL-3.0)</a></li>
+              <li><a href="https://github.com/bhaki18/manga-gui-mobile/blob/main/LICENSE" target="_blank" rel="noopener">manga-gui-mobile (GPL-3.0)</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2026 bhaki18. Progetto open source rilasciato sotto licenze MIT e GPL-3.0.</div>
+        <div>Tutti i contenuti multimediali rimangono di proprietà dei rispettivi autori ed editori.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Helper for selecting tabs from buttons -->
+  <script>
+    function selectTab(tabId) {
+      const btn = document.querySelector(`.tab-btn[data-target="${tabId}"]`);
+      if (btn) btn.click();
+    }
+  </script>
+
+  <!-- Main JavaScript Engine -->
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
