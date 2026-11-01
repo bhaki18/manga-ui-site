@@ -173,10 +173,13 @@ function applyHeroDownloadTarget() {
     btn.onclick = null;
     if (subEl) subEl.textContent = `Per Android (APK) • v${mobVer}`;
   } else if (userOS.id === 'arch') {
-    btn.href = archUrl;
-    btn.setAttribute('download', `manga-gui-bin-${deskVer}-x86_64.pkg.tar.zst`);
-    btn.onclick = null;
-    if (subEl) subEl.textContent = `Per Arch Linux (.pkg) • v${deskVer}`;
+    btn.href = '#tab-arch';
+    btn.removeAttribute('download');
+    btn.onclick = (e) => {
+      e.preventDefault();
+      selectTabAndScroll('tab-arch');
+    };
+    if (subEl) subEl.textContent = `Per Arch Linux (Pacman Repo) • v${deskVer}`;
   } else if (userOS.id === 'windows') {
     btn.href = '#tab-win';
     btn.removeAttribute('download');

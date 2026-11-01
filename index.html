@@ -125,20 +125,25 @@
               <div class="code-dots">
                 <span></span><span></span><span></span>
               </div>
-              <span>Installazione Rapida Manga CLI</span>
+              <span>Installazione Pacman (Arch Linux / Manjaro)</span>
               <button class="copy-btn" data-copy-target="snippet-hero-cli" type="button">Copia</button>
             </div>
-            <pre class="code-content" id="snippet-hero-cli"><span class="comment"># Su Arch Linux (Pacman):</span>
-<span class="cmd">sudo pacman</span> <span class="flag">-Sy</span> manga-cli
+            <pre class="code-content" id="snippet-hero-cli"><span class="comment"># 1. Aggiungi il repository a /etc/pacman.conf:</span>
+<span class="cmd">sudo bash -c</span> 'cat &lt;&lt;EOF &gt;&gt; /etc/pacman.conf
 
-<span class="comment"># Oppure universale con Node.js (v18+):</span>
-<span class="cmd">git clone</span> https://github.com/bhaki18/manga-cli.git && <span class="cmd">cd</span> manga-cli && <span class="cmd">sudo npm link</span></pre>
+[manga-cli]
+SigLevel = Optional TrustAll
+Server = https://bhaki18.github.io/manga-cli/\$arch
+EOF'
+
+<span class="comment"># 2. Installa con pacman (manga-cli, manga-gui o entrambi):</span>
+<span class="cmd">sudo pacman</span> <span class="flag">-Sy</span> manga-cli manga-gui</pre>
           </div>
 
           <div class="tlauncher-platforms-row">
             <span>Guide disponibili per:</span>
-            <button class="platform-pill" onclick="selectTabAndScroll('tab-cli')" type="button">🔵 Arch Linux (Pacman)</button>
-            <button class="platform-pill" onclick="selectTabAndScroll('tab-cli')" type="button">🐧 Debian / Ubuntu / Mint</button>
+            <button class="platform-pill" onclick="selectTabAndScroll('tab-arch')" type="button">🔵 Arch Linux (Pacman)</button>
+            <button class="platform-pill" onclick="selectTabAndScroll('tab-cli')" type="button">🐧 Debian / Ubuntu / Node</button>
             <button class="platform-pill" onclick="selectTabAndScroll('tab-cli')" type="button">🪟 Windows (WSL)</button>
           </div>
         </div>
@@ -449,7 +454,7 @@
             <div>
               <h3 class="pane-heading">Arch Linux, Manjaro, EndeavourOS</h3>
               <p class="pane-desc">
-                Installa direttamente il pacchetto <code>.pkg.tar.zst</code> oppure compila da sorgente tramite makepkg.
+                Aggiungi il repository ufficiale a <code>/etc/pacman.conf</code> per installare e ricevere gli aggiornamenti automatici sia di <strong>manga-gui</strong> che di <strong>manga-cli</strong> con pacman.
               </p>
             </div>
 
@@ -458,11 +463,16 @@
                 <div class="code-dots">
                   <span></span><span></span><span></span>
                 </div>
-                <span>Pacman - Manga GUI Precompilato</span>
-                <button class="copy-btn" data-copy-target="snippet-arch-gui" type="button">Copia</button>
+                <span>1. Configurazione Repository [manga-cli] in pacman.conf</span>
+                <button class="copy-btn" data-copy-target="snippet-arch-repo" type="button">Copia</button>
               </div>
-              <pre class="code-content" id="snippet-arch-gui"><span class="comment"># Scarica il pacchetto Pacman e installalo con un solo comando:</span>
-<span class="cmd">sudo pacman</span> <span class="flag">-U</span> https://bhaki18.github.io/manga-cli/x86_64/manga-gui-bin-1.1.4-1-x86_64.pkg.tar.zst</pre>
+              <pre class="code-content" id="snippet-arch-repo"><span class="comment"># Aggiungi il blocco del repository a /etc/pacman.conf:</span>
+<span class="cmd">sudo bash -c</span> 'cat &lt;&lt;EOF &gt;&gt; /etc/pacman.conf
+
+[manga-cli]
+SigLevel = Optional TrustAll
+Server = https://bhaki18.github.io/manga-cli/\$arch
+EOF'</pre>
             </div>
 
             <div class="code-box">
@@ -470,12 +480,27 @@
                 <div class="code-dots">
                   <span></span><span></span><span></span>
                 </div>
-                <span>Oppure compila da sorgente con makepkg</span>
-                <button class="copy-btn" data-copy-target="snippet-arch-makepkg" type="button">Copia</button>
+                <span>2. Installazione Pacman</span>
+                <button class="copy-btn" data-copy-target="snippet-arch-install" type="button">Copia</button>
               </div>
-              <pre class="code-content" id="snippet-arch-makepkg"><span class="cmd">git clone</span> https://github.com/bhaki18/manga-gui.git
-<span class="cmd">cd</span> manga-gui
-<span class="cmd">makepkg</span> <span class="flag">-si</span></pre>
+              <pre class="code-content" id="snippet-arch-install"><span class="comment"># Sincronizza i repository e installa i pacchetti desiderati:</span>
+<span class="cmd">sudo pacman</span> <span class="flag">-Sy</span> manga-gui manga-cli
+
+<span class="comment"># Oppure per installare singolarmente:</span>
+<span class="cmd">sudo pacman</span> <span class="flag">-Sy</span> manga-gui    <span class="comment"># Solo App Desktop</span>
+<span class="cmd">sudo pacman</span> <span class="flag">-Sy</span> manga-cli    <span class="comment"># Solo CLI Terminale</span></pre>
+            </div>
+
+            <div class="code-box">
+              <div class="code-header">
+                <div class="code-dots">
+                  <span></span><span></span><span></span>
+                </div>
+                <span>Metodo Alternativo: Pacchetto Standalone (.pkg.tar.zst)</span>
+                <button class="copy-btn" data-copy-target="snippet-arch-gui" type="button">Copia</button>
+              </div>
+              <pre class="code-content" id="snippet-arch-gui"><span class="comment"># Installazione diretta del file locale senza aggiungere il repository:</span>
+<span class="cmd">sudo pacman</span> <span class="flag">-U</span> https://bhaki18.github.io/manga-cli/x86_64/manga-gui-bin-1.1.4-1-x86_64.pkg.tar.zst</pre>
             </div>
           </div>
         </div>
@@ -744,9 +769,9 @@ EOF'
             <a href="https://bhaki18.github.io/manga-cli/deb/manga-gui_1.1.4-1_amd64.deb" id="modalDebLink" class="btn btn-primary btn-sm" download>
               Scarica .deb (Ubuntu/Mint)
             </a>
-            <a href="https://bhaki18.github.io/manga-cli/x86_64/manga-gui-bin-1.1.4-1-x86_64.pkg.tar.zst" id="modalArchLink" class="btn btn-secondary btn-sm" download>
-              Pacchetto Arch (.pkg)
-            </a>
+            <button class="btn btn-secondary btn-sm" onclick="selectTabAndCloseModal('tab-arch')" type="button">
+              Arch Linux (Repo Pacman)
+            </button>
           </div>
         </div>
 
