@@ -65,6 +65,50 @@
         e una potentissima <strong>CLI</strong> con caching in RAM per il terminale.
       </p>
 
+      <!-- Choose Experience: GUI vs CLI -->
+      <div class="experience-switcher-wrap">
+        <span class="switcher-label">Scegli la tua esperienza preferita:</span>
+        <div class="experience-switcher">
+          <button class="switcher-btn active" data-exp="gui" type="button">
+            <span class="exp-icon">🎨</span>
+            <span class="exp-text">
+              <strong>Manga GUI</strong>
+              <small>Interfaccia Grafica Desktop & Mobile</small>
+            </span>
+          </button>
+          <button class="switcher-btn" data-exp="cli" type="button">
+            <span class="exp-icon">⚡</span>
+            <span class="exp-text">
+              <strong>Manga CLI</strong>
+              <small>Terminale Minimalista (Linux/WSL)</small>
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Smart Auto-Detected OS Recommendation Box -->
+      <div class="smart-os-box" id="smartOsBox">
+        <div class="smart-os-header">
+          <div class="smart-os-badge">
+            <span class="pulse-indicator"></span>
+            <span>Rilevamento Automatico OS</span>
+          </div>
+          <div class="smart-os-detected" id="osDetectedBadge">
+            <span class="os-icon">💻</span>
+            <span>Rilevamento in corso...</span>
+          </div>
+        </div>
+
+        <div class="smart-os-content" id="smartOsContent">
+          <!-- Popolato dinamicamente da main.js in base all'OS rilevato e alla modalità GUI/CLI -->
+        </div>
+
+        <div class="smart-os-footer">
+          <span>Stai cercando una piattaforma diversa?</span>
+          <a href="#install" class="browse-all-link">Sfoglia tutti i download (Android, Windows, Arch, Debian, Fedora) ↓</a>
+        </div>
+      </div>
+
       <div class="hero-actions">
         <a href="#tab-android" class="btn btn-primary" onclick="selectTab('tab-android')">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -736,15 +780,8 @@ EOF'
     </div>
   </footer>
 
-  <!-- Helper for selecting tabs from buttons -->
-  <script>
-    function selectTab(tabId) {
-      const btn = document.querySelector(`.tab-btn[data-target="${tabId}"]`);
-      if (btn) btn.click();
-    }
-  </script>
-
   <!-- Main JavaScript Engine -->
   <script src="assets/js/main.js"></script>
 </body>
 </html>
+
