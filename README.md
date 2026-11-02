@@ -30,7 +30,7 @@ The full-screen visual experience for Linux and Windows.
   - **Ubuntu / Debian / Linux Mint**: Ready-to-run `.deb` package (double-click to install).
   - **Arch Linux / Manjaro / EndeavourOS**: Dedicated Pacman repository (`sudo pacman -Sy manga-gui`).
   - **Fedora / openSUSE**: One-step universal automatic installer.
-  - **Windows 10 & 11**: Ready-to-run `.zip` installer package (extract and double-click `MangaGui-Setup.exe`).
+  - **Windows 10 & 11**: Ready-to-run `.zip` package (extract and double-click `Setup.bat` or `MangaGui.exe`).
 - **Pure Comfort**: Mouse navigation, keyboard shortcuts, library bookmarks, and clean anime aesthetics.
 
 👉 [Get Manga GUI for Desktop](https://bhaki18.github.io/manga-ui-site/#downloads)
