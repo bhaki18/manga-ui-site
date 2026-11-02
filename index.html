@@ -153,15 +153,15 @@ EOF'
       <div class="live-tags">
         <div class="live-tag">
           <span class="live-indicator"></span>
-          <span>Android: <strong class="val-mobile-version">v1.0.9</strong></span>
+          <span>Android: <strong class="val-mobile-version">Latest</strong></span>
         </div>
         <div class="live-tag">
           <span class="live-indicator"></span>
-          <span>Desktop: <strong class="val-desktop-version">v1.1.4-1</strong></span>
+          <span>Desktop: <strong class="val-desktop-version">Latest</strong></span>
         </div>
         <div class="live-tag">
           <span class="live-indicator"></span>
-          <span>CLI: <strong class="val-cli-version">v2.1.0</strong></span>
+          <span>CLI: <strong class="val-cli-version">Latest</strong></span>
         </div>
         <div class="live-tag">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
@@ -190,7 +190,7 @@ EOF'
             <div class="app-icon-wrap icon-orange">
               📱
             </div>
-            <span class="badge badge-orange val-mobile-version">v1.0.9</span>
+            <span class="badge badge-orange val-mobile-version">Latest</span>
           </div>
 
           <h3 class="app-title">For Smartphones & Tablets</h3>
@@ -219,7 +219,7 @@ EOF'
           </ul>
 
           <div class="card-actions">
-            <a href="https://bhaki18.github.io/manga-cli/android/app-release.apk" class="btn btn-primary btn-download-apk link-apk" download>
+            <a href="#" class="btn btn-primary btn-download-apk link-apk">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
                 <polyline points="7 10 12 15 17 10"/>
@@ -245,7 +245,7 @@ EOF'
             <div class="app-icon-wrap icon-cyan">
               🖥️
             </div>
-            <span class="badge badge-cyan val-desktop-version">v1.1.4-1</span>
+            <span class="badge badge-cyan val-desktop-version">Latest</span>
           </div>
 
           <h3 class="app-title">For Computers (Desktop)</h3>
@@ -274,7 +274,7 @@ EOF'
           </ul>
 
           <div class="card-actions">
-            <a href="https://bhaki18.github.io/manga-cli/deb/manga-gui_1.1.4-1_amd64.deb" id="btn-download-deb" class="btn btn-secondary link-deb">
+            <a href="#" id="btn-download-deb" class="btn btn-secondary link-deb">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
                 <polyline points="7 10 12 15 17 10"/>
@@ -294,7 +294,7 @@ EOF'
             <div class="app-icon-wrap icon-purple">
               ⚡
             </div>
-            <span class="badge badge-purple val-cli-version">v2.1.0</span>
+            <span class="badge badge-purple val-cli-version">Latest</span>
           </div>
 
           <h3 class="app-title">From Command Line</h3>
@@ -395,7 +395,7 @@ EOF'
                     <polyline points="7 10 12 15 17 10"/>
                     <line x1="12" y1="15" x2="12" y2="3"/>
                   </svg>
-                  Download Android APK (<span class="val-mobile-version">v1.0.9</span>)
+                  Download Android APK (<span class="val-mobile-version">Latest</span>)
                 </a>
               </div>
             </div>
@@ -419,13 +419,13 @@ EOF'
             </div>
 
             <div style="display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 12px;">
-              <a href="https://bhaki18.github.io/manga-cli/deb/manga-gui_1.1.4-1_amd64.deb" class="btn btn-primary link-deb" download>
+              <a href="#" class="btn btn-primary link-deb" download>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
                   <polyline points="7 10 12 15 17 10"/>
                   <line x1="12" y1="15" x2="12" y2="3"/>
                 </svg>
-                Download .deb Installer (<span class="val-desktop-version">v1.1.4-1</span>)
+                Download .deb Installer (<span class="val-desktop-version">Latest</span>)
               </a>
             </div>
 
@@ -438,8 +438,8 @@ EOF'
                 <button class="copy-btn" data-copy-target="snippet-deb" type="button">Copy</button>
               </div>
               <pre class="code-content" id="snippet-deb"><span class="comment"># Download and install the app in one command:</span>
-<span class="cmd">curl</span> <span class="flag">-LO</span> https://bhaki18.github.io/manga-cli/deb/manga-gui_1.1.4-1_amd64.deb
-<span class="cmd">sudo apt</span> install ./manga-gui_1.1.4-1_amd64.deb
+<span class="cmd">curl</span> <span class="flag">-LO</span> https://bhaki18.github.io/manga-cli/deb/manga-gui_latest_amd64.deb
+<span class="cmd">sudo apt</span> install ./manga-gui_*_amd64.deb
 
 <span class="comment"># Then start the app (you can also find it in your application menu):</span>
 <span class="cmd">manga-gui</span></pre>
@@ -700,7 +700,7 @@ EOF'</pre>
           <div class="platform-name">Linux</div>
           <div class="platform-meta">Debian, Ubuntu, Arch, Fedora</div>
           <div class="platform-actions">
-            <a href="https://bhaki18.github.io/manga-cli/deb/manga-gui_1.1.4-1_amd64.deb" id="modalDebLink" class="btn btn-primary btn-sm link-deb" download>
+            <a href="#" id="modalDebLink" class="btn btn-primary btn-sm link-deb" download>
               Download .deb (Ubuntu/Mint)
             </a>
             <button class="btn btn-secondary btn-sm" onclick="selectTabAndCloseModal('tab-arch')" type="button">
@@ -737,7 +737,7 @@ EOF'</pre>
       </p>
       <img class="modal-qr-img dynamic-qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=https://bhaki18.github.io/manga-cli/android/app-release.apk&bgcolor=11141a&color=f47521&margin=8" alt="QR Code Android APK">
       <p style="font-size: 0.85rem; color: var(--accent-orange); font-weight: 600;">
-        APK Version: <span class="val-mobile-version">v1.0.9</span>
+        APK Version: <span class="val-mobile-version">Latest</span>
       </p>
     </div>
   </div>
@@ -776,9 +776,9 @@ EOF'</pre>
           <div>
             <h4 class="footer-col-title">Direct Downloads</h4>
             <ul class="footer-list">
-              <li><a href="https://bhaki18.github.io/manga-cli/android/app-release.apk" class="link-apk" download>Android APK (<span class="val-mobile-version">v1.0.9</span>)</a></li>
-              <li><a href="https://bhaki18.github.io/manga-cli/deb/manga-gui_1.1.4-1_amd64.deb" class="link-deb" download>Debian / Ubuntu (<span class="val-desktop-version">v1.1.4-1</span>)</a></li>
-              <li><a href="https://bhaki18.github.io/manga-cli/x86_64/manga-gui-bin-1.1.4-1-x86_64.pkg.tar.zst" class="link-arch" download>Arch Linux (.pkg.tar.zst)</a></li>
+              <li><a href="https://bhaki18.github.io/manga-cli/android/app-release.apk" class="link-apk" download>Android APK (<span class="val-mobile-version">Latest</span>)</a></li>
+              <li><a href="#" class="link-deb" download>Debian / Ubuntu (<span class="val-desktop-version">Latest</span>)</a></li>
+              <li><a href="#" class="link-arch" download>Arch Linux (<span class="val-desktop-version">Latest</span>)</a></li>
               <li><a href="https://bhaki18.github.io/manga-cli/version.json" target="_blank" rel="noopener">Version Manifest (JSON)</a></li>
             </ul>
           </div>
