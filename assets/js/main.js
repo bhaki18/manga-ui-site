@@ -270,40 +270,75 @@ function highlightAppCard(exp) {
 }
 
 /**
- * Fetch remote version manifests from bhaki18.github.io/manga-cli
+ * Fetch remote version manifests with cache-busting from GitHub
  */
 async function initLiveVersions() {
-  const versionDesktopUrl = 'https://bhaki18.github.io/manga-cli/version.json';
-  const versionMobileUrl = 'https://bhaki18.github.io/manga-cli/version_mobile.json';
+  const timestamp = Date.now();
 
-  // 1. Fetch Desktop Manifest
-  try {
-    const res = await fetch(versionDesktopUrl, { cache: 'no-cache' });
-    if (res.ok) {
-      const data = await res.json();
-      currentData.desktop = { ...DEFAULTS.desktop, ...data };
-      applyDesktopData(currentData.desktop);
-    } else {
-      applyDesktopData(DEFAULTS.desktop);
+  // 1. Fetch Manga GUI (Desktop) - Checks manga-gui repo first, falls back to gh-pages
+  const guiEndpoints = [
+    `https://raw.githubusercontent.com/bhaki18/manga-gui/main/version.json?_t=${timestamp}`,
+    `https://bhaki18.github.io/manga-cli/version.json?_t=${timestamp}`
+  ];
+
+  for (const url of guiEndpoints) {
+    try {
+      const res = await fetch(url, { cache: 'no-cache' });
+      if (res.ok) {
+        const data = await res.json();
+        if (data && data.version) {
+          currentData.desktop = { ...DEFAULTS.desktop, ...data };
+          applyDesktopData(currentData.desktop);
+          break;
+        }
+      }
+    } catch (e) {
+      console.warn(`Could not fetch desktop version from ${url}:`, e);
     }
-  } catch (err) {
-    console.warn('Could not fetch desktop version, using default.', err);
-    applyDesktopData(DEFAULTS.desktop);
   }
 
-  // 2. Fetch Mobile Manifest
-  try {
-    const res = await fetch(versionMobileUrl, { cache: 'no-cache' });
-    if (res.ok) {
-      const data = await res.json();
-      currentData.mobile = { ...DEFAULTS.mobile, ...data };
-      applyMobileData(currentData.mobile);
-    } else {
-      applyMobileData(DEFAULTS.mobile);
+  // 2. Fetch Manga GUI Mobile - Checks manga-gui-mobile repo first, falls back to gh-pages
+  const mobileEndpoints = [
+    `https://raw.githubusercontent.com/bhaki18/manga-gui-mobile/main/version_mobile.json?_t=${timestamp}`,
+    `https://bhaki18.github.io/manga-cli/version_mobile.json?_t=${timestamp}`
+  ];
+
+  for (const url of mobileEndpoints) {
+    try {
+      const res = await fetch(url, { cache: 'no-cache' });
+      if (res.ok) {
+        const data = await res.json();
+        if (data && data.version) {
+          currentData.mobile = { ...DEFAULTS.mobile, ...data };
+          applyMobileData(currentData.mobile);
+          break;
+        }
+      }
+    } catch (e) {
+      console.warn(`Could not fetch mobile version from ${url}:`, e);
     }
-  } catch (err) {
-    console.warn('Could not fetch mobile version, using default.', err);
-    applyMobileData(DEFAULTS.mobile);
+  }
+
+  // 3. Fetch Manga CLI - Checks manga-cli package.json first
+  const cliEndpoints = [
+    `https://raw.githubusercontent.com/bhaki18/manga-cli/main/package.json?_t=${timestamp}`,
+    `https://bhaki18.github.io/manga-cli/x86_64/version.json?_t=${timestamp}`
+  ];
+
+  for (const url of cliEndpoints) {
+    try {
+      const res = await fetch(url, { cache: 'no-cache' });
+      if (res.ok) {
+        const data = await res.json();
+        if (data && data.version) {
+          currentData.cli.version = data.version;
+          applyCliData(currentData.cli);
+          break;
+        }
+      }
+    } catch (e) {
+      console.warn(`Could not fetch CLI version from ${url}:`, e);
+    }
   }
 
   // Re-apply Hero CTA with live version tags
@@ -312,59 +347,83 @@ async function initLiveVersions() {
 
 function applyDesktopData(data) {
   const version = data.version || DEFAULTS.desktop.version;
-  const debUrl = data.debPackageUrl || DEFAULTS.desktop.debUrl;
-  const archUrl = data.archPackageUrl || DEFAULTS.desktop.archUrl;
+  let debUrl = data.debPackageUrl || DEFAULTS.desktop.debUrl;
+  let archUrl = data.archPackageUrl || DEFAULTS.desktop.archUrl;
 
-  document.querySelectorAll('.val-desktop-version').forEach(el => el.textContent = `v${version}`);
-  
-  const debBtn = document.getElementById('btn-download-deb');
-  const modalDeb = document.getElementById('modalDebLink');
-  const finalDebUrl = debUrl.startsWith('http') 
-    ? debUrl 
-    : `https://bhaki18.github.io/manga-cli/${debUrl}`;
-
-  if (debBtn) {
-    debBtn.href = finalDebUrl;
-    debBtn.setAttribute('download', `manga-gui_${version}_amd64.deb`);
+  if (!debUrl.startsWith('http')) {
+    debUrl = `https://bhaki18.github.io/manga-cli/${debUrl}`;
   }
-  if (modalDeb) {
-    modalDeb.href = finalDebUrl;
-    modalDeb.setAttribute('download', `manga-gui_${version}_amd64.deb`);
+  if (!archUrl.startsWith('http')) {
+    archUrl = `https://bhaki18.github.io/manga-cli/${archUrl}`;
   }
 
-  const archBtn = document.getElementById('btn-download-arch');
-  const modalArch = document.getElementById('modalArchLink');
-  if (archBtn) archBtn.href = archUrl;
-  if (modalArch) modalArch.href = archUrl;
+  currentData.desktop.debUrl = debUrl;
+  currentData.desktop.archUrl = archUrl;
 
+  // 1. Update all desktop version labels
+  document.querySelectorAll('.val-desktop-version').forEach(el => {
+    el.textContent = `v${version}`;
+  });
+
+  // 2. Update all .deb links across the entire page
+  document.querySelectorAll('.link-deb, #btn-download-deb, #modalDebLink').forEach(el => {
+    el.href = debUrl;
+    el.setAttribute('download', `manga-gui_${version}_amd64.deb`);
+  });
+
+  // 3. Update all Arch package links across the entire page
+  document.querySelectorAll('.link-arch, #btn-download-arch, #modalArchLink').forEach(el => {
+    el.href = archUrl;
+    el.setAttribute('download', `manga-gui-bin-${version}-x86_64.pkg.tar.zst`);
+  });
+
+  // 4. Update the terminal snippet with the live version and URL
   const debSnippet = document.getElementById('snippet-deb');
   if (debSnippet) {
     debSnippet.innerHTML = 
-`<span class="comment"># 1. Download and install the .deb package</span>
-<span class="cmd">curl</span> <span class="flag">-LO</span> https://bhaki18.github.io/manga-cli/deb/manga-gui_${version}_amd64.deb
+`<span class="comment"># 1. Download and install the .deb package:</span>
+<span class="cmd">curl</span> <span class="flag">-LO</span> ${debUrl}
 <span class="cmd">sudo apt</span> install ./manga-gui_${version}_amd64.deb
 
-<span class="comment"># 2. Launch the app</span>
+<span class="comment"># 2. Launch the app:</span>
 <span class="cmd">manga-gui</span>`;
+  }
+
+  // 5. Update Arch direct download snippet if present
+  const archSnippet = document.getElementById('snippet-arch-gui');
+  if (archSnippet) {
+    archSnippet.innerHTML = `<span class="comment"># Direct package install without adding repository:</span>
+<span class="cmd">sudo pacman</span> <span class="flag">-U</span> ${archUrl}`;
   }
 }
 
 function applyMobileData(data) {
   const version = data.version || DEFAULTS.mobile.version;
   const apkUrl = data.apkUrl || DEFAULTS.mobile.apkUrl;
+  currentData.mobile.apkUrl = apkUrl;
 
-  document.querySelectorAll('.val-mobile-version').forEach(el => el.textContent = `v${version}`);
-  
-  const apkBtns = document.querySelectorAll('.btn-download-apk');
-  apkBtns.forEach(btn => {
+  // 1. Update all mobile version labels
+  document.querySelectorAll('.val-mobile-version').forEach(el => {
+    el.textContent = `v${version}`;
+  });
+
+  // 2. Update all APK links across the entire page
+  document.querySelectorAll('.link-apk, .btn-download-apk').forEach(btn => {
     btn.href = apkUrl;
     btn.setAttribute('download', `manga-gui-${version}.apk`);
   });
 
-  const qrImages = document.querySelectorAll('.dynamic-qr-img');
+  // 3. Update all dynamic QR code images
   const qrSource = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(apkUrl)}&bgcolor=11141a&color=f47521&margin=8`;
-  qrImages.forEach(img => {
+  document.querySelectorAll('.dynamic-qr-img').forEach(img => {
     img.src = qrSource;
+  });
+}
+
+function applyCliData(data) {
+  const version = data.version || DEFAULTS.cli.version;
+  document.querySelectorAll('.val-cli-version').forEach(el => {
+    el.textContent = `v${version}`;
   });
 }
 
