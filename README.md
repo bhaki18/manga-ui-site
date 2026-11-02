@@ -56,7 +56,7 @@ For keyboard lovers and power users who value raw speed.
 | **Ubuntu / Debian** | Manga GUI Desktop | `.deb` | Double-click package |
 | **Arch Linux** | Manga GUI & CLI | Pacman repo | `sudo pacman -Sy manga-gui manga-cli` |
 | **Fedora / Other Linux**| Manga GUI Desktop | Script | `sudo ./install.sh` |
-| **Windows** | Manga GUI Desktop | `.zip` Installer | Extract zip & launch installer |
+| **Windows** | Manga GUI Desktop | `.zip` Package | Extract zip & run `Setup.bat` or `MangaGui.exe` |
 | **Any Terminal** | Manga CLI | Node / Binary | `npx manga-cli` |
 
 ---

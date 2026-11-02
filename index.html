@@ -538,20 +538,103 @@ EOF'</pre>
               </a>
             </div>
 
-            <div class="code-box">
-              <div class="code-header">
-                <div class="code-dots">
-                  <span></span><span></span><span></span>
+            <div class="win-guide-steps">
+              <!-- Step 1 -->
+              <div class="win-step-row">
+                <div class="win-step-badge">1</div>
+                <div class="win-step-body">
+                  <div class="win-step-title">Extract the Downloaded ZIP</div>
+                  <p class="win-step-text">
+                    Right-click on <span class="win-file-pill">manga-gui-windows.zip</span> and select <strong>"Extract All..."</strong> (<em>Estrai tutto...</em>) to unpack the files into a folder.
+                    <br><small style="color: var(--text-muted);">⚠️ Note: Always extract the ZIP before running. Do not run files directly inside the Windows compressed folder preview.</small>
+                  </p>
                 </div>
-                <span>Quick Setup (2 Simple Steps)</span>
-                <button class="copy-btn" data-copy-target="snippet-win-guide" type="button">Copy</button>
               </div>
-              <pre class="code-content" id="snippet-win-guide"><span class="comment"># Step 1: Extract the downloaded archive:</span>
-Right-click on manga-gui-windows.zip &gt; "Extract All..."
 
-<span class="comment"># Step 2: Run the installer or app directly:</span>
-Double-click "Setup.bat" (or "Installa-Manga-GUI.bat" to install, or "MangaGui.exe" directly)
-<span class="comment"># That's it! Everything is configured and Manga GUI opens automatically.</span></pre>
+              <!-- Step 2 -->
+              <div class="win-step-row">
+                <div class="win-step-badge">2</div>
+                <div class="win-step-body">
+                  <div class="win-step-title">Choose How You Want to Run It</div>
+                  <p class="win-step-text">Open the extracted folder and pick either of the two launch options:</p>
+
+                  <div class="win-options-grid">
+                    <!-- Option A -->
+                    <div class="win-option-card recommended">
+                      <div class="win-option-header">
+                        <div class="win-option-title">
+                          ⚡ Option A: Auto-Installer
+                        </div>
+                        <span class="badge badge-orange">Recommended</span>
+                      </div>
+                      <p class="win-step-text">
+                        Double-click <span class="win-file-pill">Setup.bat</span> (or <span class="win-file-pill">Installa-Manga-GUI.bat</span>).
+                      </p>
+                      <ul style="font-size: 0.84rem; color: var(--text-secondary); margin-left: 18px; line-height: 1.5;">
+                        <li>Copies files cleanly to your local user apps directory</li>
+                        <li>Creates <strong>Desktop</strong> &amp; <strong>Start Menu</strong> shortcuts with official icon</li>
+                        <li>Adds standard Windows Control Panel uninstaller</li>
+                        <li>Starts Manga GUI automatically</li>
+                      </ul>
+                    </div>
+
+                    <!-- Option B -->
+                    <div class="win-option-card">
+                      <div class="win-option-header">
+                        <div class="win-option-title">
+                          🚀 Option B: Portable Mode
+                        </div>
+                        <span class="badge badge-cyan">Zero Install</span>
+                      </div>
+                      <p class="win-step-text">
+                        Double-click <span class="win-file-pill">MangaGui.exe</span> directly.
+                      </p>
+                      <ul style="font-size: 0.84rem; color: var(--text-secondary); margin-left: 18px; line-height: 1.5;">
+                        <li>No installation or administrator rights required</li>
+                        <li>Works standalone right from the folder or a USB stick</li>
+                        <li>Leaves zero footprint in your Windows registry</li>
+                        <li>You can create a desktop shortcut via <span class="win-file-pill">Crea-Collegamento-Desktop.bat</span></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Step 3: SmartScreen Callout -->
+              <div class="win-tip-banner">
+                <svg class="win-tip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                  <line x1="12" y1="8" x2="12" y2="12"/>
+                  <line x1="12" y1="16" x2="12.01" y2="16"/>
+                </svg>
+                <div>
+                  <div class="win-tip-title">First-launch tip: Windows Defender / SmartScreen prompt</div>
+                  <div class="win-tip-desc">
+                    Since Manga GUI is a free, community open-source project without a paid corporate Microsoft signature, Windows SmartScreen may show a blue prompt (<em>"Windows protected your PC" / "PC protetto da Windows"</em>).
+                    <br>
+                    Simply click <strong>"More info"</strong> (<em>Ulteriori informazioni</em>) &rarr; <strong>"Run anyway"</strong> (<em>Esegui comunque</em>). All code is 100% open-source and safe to inspect on GitHub.
+                  </div>
+                </div>
+              </div>
+
+              <!-- Quick reference copyable box -->
+              <div class="code-box" style="margin-top: 14px;">
+                <div class="code-header">
+                  <div class="code-dots">
+                    <span></span><span></span><span></span>
+                  </div>
+                  <span>Quick Setup Summary</span>
+                  <button class="copy-btn" data-copy-target="snippet-win-guide" type="button">Copy</button>
+                </div>
+                <pre class="code-content" id="snippet-win-guide"><span class="comment"># 1. Extract archive:</span>
+Right-click "manga-gui-windows.zip" &gt; "Extract All..."
+
+<span class="comment"># 2. Run Setup (creates shortcuts and launches app):</span>
+Double-click "Setup.bat" (or run "MangaGui.exe" directly for portable mode)
+
+<span class="comment"># 3. If Windows SmartScreen appears:</span>
+Click "More info" &gt; "Run anyway"</pre>
+              </div>
             </div>
           </div>
         </div>
