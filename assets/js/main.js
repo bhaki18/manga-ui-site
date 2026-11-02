@@ -14,6 +14,7 @@ const DEFAULTS = {
     debUrl: 'https://bhaki18.github.io/manga-cli/deb/manga-gui_1.1.4-1_amd64.deb',
     archUrl: 'https://bhaki18.github.io/manga-cli/x86_64/manga-gui-bin-1.1.4-1-x86_64.pkg.tar.zst',
     tarballUrl: 'https://raw.githubusercontent.com/bhaki18/manga-cli/gh-pages/manga-gui-linux-x64.tar.gz',
+    windowsZipUrl: 'https://bhaki18.github.io/manga-cli/windows/manga-gui-windows.zip',
     notes: 'MP4/HLS streaming support and UI stability patch'
   },
   mobile: {
@@ -181,13 +182,11 @@ function applyHeroDownloadTarget() {
     };
     if (subEl) subEl.textContent = `For Arch Linux (Pacman Repo) • v${deskVer}`;
   } else if (userOS.id === 'windows') {
-    btn.href = '#tab-win';
-    btn.removeAttribute('download');
-    btn.onclick = (e) => {
-      e.preventDefault();
-      selectTabAndScroll('tab-win');
-    };
-    if (subEl) subEl.textContent = `For Windows (x64) • v${deskVer}`;
+    const winUrl = currentData.desktop.windowsZipUrl || DEFAULTS.desktop.windowsZipUrl;
+    btn.href = winUrl;
+    btn.setAttribute('download', 'manga-gui-windows.zip');
+    btn.onclick = null;
+    if (subEl) subEl.textContent = `For Windows (ZIP Installer) • v${deskVer}`;
   } else {
     // Default Linux (.deb)
     btn.href = debUrl;
@@ -349,6 +348,7 @@ function applyDesktopData(data) {
   const version = data.version || DEFAULTS.desktop.version;
   let debUrl = data.debPackageUrl || DEFAULTS.desktop.debUrl;
   let archUrl = data.archPackageUrl || DEFAULTS.desktop.archUrl;
+  let winUrl = data.windowsZipUrl || DEFAULTS.desktop.windowsZipUrl;
 
   if (!debUrl.startsWith('http')) {
     debUrl = `https://bhaki18.github.io/manga-cli/${debUrl}`;
@@ -356,9 +356,13 @@ function applyDesktopData(data) {
   if (!archUrl.startsWith('http')) {
     archUrl = `https://bhaki18.github.io/manga-cli/${archUrl}`;
   }
+  if (!winUrl.startsWith('http')) {
+    winUrl = `https://bhaki18.github.io/manga-cli/${winUrl}`;
+  }
 
   currentData.desktop.debUrl = debUrl;
   currentData.desktop.archUrl = archUrl;
+  currentData.desktop.windowsZipUrl = winUrl;
 
   // 1. Update all desktop version labels
   document.querySelectorAll('.val-desktop-version').forEach(el => {
@@ -375,6 +379,12 @@ function applyDesktopData(data) {
   document.querySelectorAll('.link-arch, #btn-download-arch, #modalArchLink').forEach(el => {
     el.href = archUrl;
     el.setAttribute('download', `manga-gui-bin-${version}-x86_64.pkg.tar.zst`);
+  });
+
+  // 4. Update all Windows ZIP links across the entire page
+  document.querySelectorAll('.link-win, #btn-download-win, #modalWinLink').forEach(el => {
+    el.href = winUrl;
+    el.setAttribute('download', 'manga-gui-windows.zip');
   });
 
   // 4. Update the terminal snippet with the live version and URL

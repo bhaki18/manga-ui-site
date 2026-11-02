@@ -282,8 +282,8 @@ EOF'
               </svg>
               Download for Ubuntu / Debian (.deb)
             </a>
-            <a href="#tab-arch" class="btn btn-outline btn-sm" onclick="selectTab('tab-arch')">
-              View Arch Linux & Windows Options
+            <a href="#tab-win" class="btn btn-outline btn-sm" onclick="selectTabAndScroll('tab-win')">
+              Windows (.zip) & Arch / Other Linux
             </a>
           </div>
         </div>
@@ -518,16 +518,40 @@ EOF'</pre>
         <div class="tab-pane" id="tab-win">
           <div class="tab-single-col">
             <div>
-              <h3 class="pane-heading">Manga GUI for Windows</h3>
+              <h3 class="pane-heading">Manga GUI for Windows 10 & 11 (64-bit)</h3>
               <p class="pane-desc">
-                Manga GUI runs smoothly on Windows PCs. Check the step-by-step guide on the repository to download or build the standalone executable.
+                Everything is packaged and ready to go. Download the ZIP file, extract it on your PC, and double-click the installer: it configures your desktop shortcut, verifies all dependencies, and launches Manga GUI immediately!
               </p>
             </div>
 
-            <div style="display: flex; gap: 14px; flex-wrap: wrap;">
-              <a href="https://github.com/bhaki18/manga-gui" target="_blank" rel="noopener" class="btn btn-primary">
-                Open Windows Guide on GitHub
+            <div style="display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 12px;">
+              <a href="https://bhaki18.github.io/manga-cli/windows/manga-gui-windows.zip" id="btn-download-win" class="btn btn-primary link-win" download="manga-gui-windows.zip">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                  <polyline points="7 10 12 15 17 10"/>
+                  <line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                Download for Windows (.zip) (<span class="val-desktop-version">Latest</span>)
               </a>
+              <a href="https://github.com/bhaki18/manga-gui" target="_blank" rel="noopener" class="btn btn-outline">
+                View Source on GitHub
+              </a>
+            </div>
+
+            <div class="code-box">
+              <div class="code-header">
+                <div class="code-dots">
+                  <span></span><span></span><span></span>
+                </div>
+                <span>Quick Setup (2 Simple Steps)</span>
+                <button class="copy-btn" data-copy-target="snippet-win-guide" type="button">Copy</button>
+              </div>
+              <pre class="code-content" id="snippet-win-guide"><span class="comment"># Step 1: Extract the downloaded archive:</span>
+Right-click on manga-gui-windows.zip &gt; "Extract All..."
+
+<span class="comment"># Step 2: Run the installer:</span>
+Double-click "MangaGui-Setup.exe" (or "Installa-Manga-GUI.bat")
+<span class="comment"># That's it! A desktop icon is created and Manga GUI opens automatically.</span></pre>
             </div>
           </div>
         </div>
@@ -686,10 +710,13 @@ EOF'</pre>
         <div class="platform-card" id="cardPlatformWin">
           <div class="platform-icon-large">🪟</div>
           <div class="platform-name">Windows</div>
-          <div class="platform-meta">64-bit Standalone (.exe)</div>
+          <div class="platform-meta">64-bit ZIP Installer (.zip)</div>
           <div class="platform-actions">
-            <button class="btn btn-primary btn-sm" onclick="selectTabAndCloseModal('tab-win')" type="button">
-              Instructions & Download
+            <a href="https://bhaki18.github.io/manga-cli/windows/manga-gui-windows.zip" id="modalWinLink" class="btn btn-primary btn-sm link-win" download="manga-gui-windows.zip">
+              ⬇ Download .zip
+            </a>
+            <button class="btn btn-outline btn-sm" onclick="selectTabAndCloseModal('tab-win')" type="button">
+              Guide
             </button>
           </div>
         </div>
