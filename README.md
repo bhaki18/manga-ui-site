@@ -1,50 +1,77 @@
-# 🌐 Manga Ecosystem Web Showcase (`manga-ui-site`)
+# 🍙 The Open-Source Manga & Anime Suite
 
-The official showcase website for the open-source **Manga & Anime Suite**:
-- 📱 [**manga-gui-mobile**](https://github.com/bhaki18/manga-gui-mobile) (Native Android App)
-- 🖥️ [**manga-gui**](https://github.com/bhaki18/manga-gui) (Desktop App for Linux & Windows)
-- ⚡ [**manga-cli**](https://github.com/bhaki18/manga-cli) (Blazing-Fast Command-Line CLI)
+Welcome to the official home of the **Manga Ecosystem** created by [**bhaki18**](https://github.com/bhaki18). 
 
----
+A collection of **100% free**, **ad-free**, and **open-source** apps designed to give you the ultimate anime streaming and manga reading experience across all your favorite devices.
 
-## ✨ Features
-
-- **100% Free, Ad-Free & Serverless**: Completely static landing page hosted on **GitHub Pages** with zero tracking.
-- **TLauncher-Inspired Download Hub**: One-click direct downloads with automatic OS detection, quick platform selector modal, and simple copy-paste terminal snippets.
-- **Dynamic Live Versions**: Automatically queries `version.json` and `version_mobile.json` on `https://bhaki18.github.io/manga-cli/` to display the latest release tags and direct download URLs.
-- **User-Friendly Installation**: Straightforward, jargon-free instructions for Android (with QR code scanner), Ubuntu/Debian (`.deb`), Arch Linux (`pacman.conf`), Fedora/openSUSE (universal installer), Windows, and Terminal CLI.
-- **Modern Anime Dark Theme**: Inspired by modern streaming hubs (dark obsidian `#0A0B0E` with vibrant `#F47521` orange accents), atmospheric glow effects, and responsive design across mobile, tablet, and desktop screens.
+🌐 **Visit the Official Download Site**: [**bhaki18.github.io/manga-ui-site**](https://bhaki18.github.io/manga-ui-site/)
 
 ---
 
-## 🚀 Local Preview
+## 🌟 Choose Your Experience
 
-Test the website locally with any static web server:
+Whether you prefer a smartphone screen, a big desktop monitor, or the blazing speed of a terminal, there is a version crafted specifically for you:
 
-```bash
-# Using Python 3
-python3 -m http.server 8080
+### 📱 [Manga GUI Mobile](https://github.com/bhaki18/manga-gui-mobile) — For Smartphones & Tablets
+The ultimate pocket companion for Android devices.
+- **Made for touch screens**: Smooth scrolling, intuitive pinch-to-zoom, and gesture controls.
+- **Ad-Free Anime Player**: Stream series and movies smoothly with integrated player controls.
+- **Read Anywhere**: Optimized for bedtime reading with true dark mode and battery-saving design.
+- **Direct Download**: Grab the latest `.apk` package and install it directly on any Android phone or tablet.
 
-# Or with Node.js
-npx serve .
-```
-
-Open `http://localhost:8080` in your web browser.
+👉 [Download Manga GUI Mobile (APK)](https://bhaki18.github.io/manga-cli/android/app-release.apk)
 
 ---
 
-## 📦 Deploy to GitHub Pages
+### 🖥️ [Manga GUI Desktop](https://github.com/bhaki18/manga-gui) — For Computers & Laptops
+The full-screen visual experience for Linux and Windows.
+- **Big-Screen Immersion**: Enjoy high-resolution manga pages and high-definition anime playback.
+- **Easy Installation**:
+  - **Ubuntu / Debian / Linux Mint**: Ready-to-run `.deb` package (double-click to install).
+  - **Arch Linux / Manjaro / EndeavourOS**: Dedicated Pacman repository (`sudo pacman -Sy manga-gui`).
+  - **Fedora / openSUSE**: One-step universal automatic installer.
+  - **Windows**: Native standalone release.
+- **Pure Comfort**: Mouse navigation, keyboard shortcuts, library bookmarks, and clean anime aesthetics.
 
-1. Push your changes to GitHub:
-   ```bash
-   git add .
-   git commit -m "Update website"
-   git push origin main
-   ```
-2. In your repository on GitHub (`bhaki18/manga-ui-site`), navigate to **Settings** > **Pages**.
-3. Under **Build and deployment**:
-   - **Source**: `Deploy from a branch`
-   - **Branch**: `main` / `/(root)`
-   - Click **Save**.
-4. The site will be live at:
-   `https://bhaki18.github.io/manga-ui-site/`
+👉 [Get Manga GUI for Desktop](https://bhaki18.github.io/manga-ui-site/#downloads)
+
+---
+
+### ⚡ [Manga CLI](https://github.com/bhaki18/manga-cli) — From the Command Line
+For keyboard lovers and power users who value raw speed.
+- **Lightning Fast**: Type a title, hit Enter, and stream or read in under a second.
+- **Zero Distractions**: No heavy browsers, no banners, no popups.
+- **Lightweight**: Consumes virtually zero memory or CPU, running smoothly even on older hardware or remote sessions.
+- **Quick Run**: Available instantly via Node.js (`npx manga-cli`) or native Arch Linux package (`manga-cli-git`).
+
+👉 [Explore Manga CLI](https://github.com/bhaki18/manga-cli)
+
+---
+
+## 📊 Quick Platform Overview
+
+| Platform | Recommended App | Format | Installation |
+| :--- | :--- | :--- | :--- |
+| **Android** | Manga GUI Mobile | `.apk` | Download & tap to install |
+| **Ubuntu / Debian** | Manga GUI Desktop | `.deb` | Double-click package |
+| **Arch Linux** | Manga GUI & CLI | Pacman repo | `sudo pacman -Sy manga-gui manga-cli` |
+| **Fedora / Other Linux**| Manga GUI Desktop | Script | `sudo ./install.sh` |
+| **Windows** | Manga GUI Desktop | `.exe` / Folder | Unpack and launch |
+| **Any Terminal** | Manga CLI | Node / Binary | `npx manga-cli` |
+
+---
+
+## 💡 Why This Suite?
+
+- 🚫 **Zero Ads & Zero Popups**: No disruptive ads, trackers, or hidden subscriptions.
+- 🔓 **100% Open Source**: Transparent code published on GitHub under open licenses (MIT & GPL-3.0).
+- 🔄 **Always Up to Date**: Automated versioning ensures you always receive the latest features and bug fixes.
+- 🎨 **Modern Dark Aesthetics**: Crafted with passion for anime fans and manga enthusiasts.
+
+---
+
+## 🔗 Links & Community
+
+- 🌐 **Web Showcase & Downloads**: [https://bhaki18.github.io/manga-ui-site/](https://bhaki18.github.io/manga-ui-site/)
+- 🐙 **Creator GitHub Profile**: [@bhaki18](https://github.com/bhaki18)
+- 🐛 **Issue Reporting & Feedback**: Open an issue on the respective repository on GitHub.
