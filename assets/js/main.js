@@ -14,11 +14,11 @@ const DEFAULTS = {
     debUrl: 'https://bhaki18.github.io/manga-cli/deb/manga-gui_1.1.4-1_amd64.deb',
     archUrl: 'https://bhaki18.github.io/manga-cli/x86_64/manga-gui-bin-1.1.4-1-x86_64.pkg.tar.zst',
     tarballUrl: 'https://raw.githubusercontent.com/bhaki18/manga-cli/gh-pages/manga-gui-linux-x64.tar.gz',
-    notes: 'Supporto streaming MP4/HLS e correzione UI'
+    notes: 'MP4/HLS streaming support and UI stability patch'
   },
   mobile: {
     version: '1.0.9',
-    notes: 'Novità di questo aggiornamento: patch stabilità',
+    notes: 'Latest update: stability patch',
     apkUrl: 'https://bhaki18.github.io/manga-cli/android/app-release.apk'
   },
   cli: {
@@ -171,7 +171,7 @@ function applyHeroDownloadTarget() {
     btn.href = apkUrl;
     btn.setAttribute('download', `manga-gui-${mobVer}.apk`);
     btn.onclick = null;
-    if (subEl) subEl.textContent = `Per Android (APK) • v${mobVer}`;
+    if (subEl) subEl.textContent = `For Android (APK) • v${mobVer}`;
   } else if (userOS.id === 'arch') {
     btn.href = '#tab-arch';
     btn.removeAttribute('download');
@@ -179,7 +179,7 @@ function applyHeroDownloadTarget() {
       e.preventDefault();
       selectTabAndScroll('tab-arch');
     };
-    if (subEl) subEl.textContent = `Per Arch Linux (Pacman Repo) • v${deskVer}`;
+    if (subEl) subEl.textContent = `For Arch Linux (Pacman Repo) • v${deskVer}`;
   } else if (userOS.id === 'windows') {
     btn.href = '#tab-win';
     btn.removeAttribute('download');
@@ -187,13 +187,13 @@ function applyHeroDownloadTarget() {
       e.preventDefault();
       selectTabAndScroll('tab-win');
     };
-    if (subEl) subEl.textContent = `Per Windows (x64) • v${deskVer}`;
+    if (subEl) subEl.textContent = `For Windows (x64) • v${deskVer}`;
   } else {
     // Default Linux (.deb)
     btn.href = debUrl;
     btn.setAttribute('download', `manga-gui_${deskVer}_amd64.deb`);
     btn.onclick = null;
-    if (subEl) subEl.textContent = `Per Linux (Ubuntu / Debian .deb) • v${deskVer}`;
+    if (subEl) subEl.textContent = `For Linux (Ubuntu / Debian .deb) • v${deskVer}`;
   }
 
   // Pre-highlight recommended card in platform modal
@@ -340,11 +340,11 @@ function applyDesktopData(data) {
   const debSnippet = document.getElementById('snippet-deb');
   if (debSnippet) {
     debSnippet.innerHTML = 
-`<span class="comment"># 1. Scarica e installa il pacchetto .deb</span>
+`<span class="comment"># 1. Download and install the .deb package</span>
 <span class="cmd">curl</span> <span class="flag">-LO</span> https://bhaki18.github.io/manga-cli/deb/manga-gui_${version}_amd64.deb
 <span class="cmd">sudo apt</span> install ./manga-gui_${version}_amd64.deb
 
-<span class="comment"># 2. Avvia l'applicazione</span>
+<span class="comment"># 2. Launch the app</span>
 <span class="cmd">manga-gui</span>`;
   }
 }
@@ -471,10 +471,10 @@ function initCopyButtons() {
 
       navigator.clipboard.writeText(textToCopy).then(() => {
         const originalText = btn.innerHTML;
-        btn.innerHTML = `✓ Copiato!`;
+        btn.innerHTML = `✓ Copied!`;
         btn.classList.add('copied');
 
-        showToast('Comando copiato negli appunti!');
+        showToast('Command copied to clipboard!');
 
         setTimeout(() => {
           btn.innerHTML = originalText;

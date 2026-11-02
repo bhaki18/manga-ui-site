@@ -1,50 +1,50 @@
 # 🌐 Manga Ecosystem Web Showcase (`manga-ui-site`)
 
-Il sito web vetrina ufficiale per l'ecosistema open source di **Manga & Anime**:
-- 📱 [**manga-gui-mobile**](https://github.com/bhaki18/manga-gui-mobile) (Android Nativo - Kotlin & Jetpack Compose)
-- 🖥️ [**manga-gui**](https://github.com/bhaki18/manga-gui) (Desktop Linux & Windows - C# Avalonia UI)
-- ⚡ [**manga-cli**](https://github.com/bhaki18/manga-cli) (Terminale Linux - Node.js, Shell, RAM Caching)
+The official showcase website for the open-source **Manga & Anime Suite**:
+- 📱 [**manga-gui-mobile**](https://github.com/bhaki18/manga-gui-mobile) (Native Android App)
+- 🖥️ [**manga-gui**](https://github.com/bhaki18/manga-gui) (Desktop App for Linux & Windows)
+- ⚡ [**manga-cli**](https://github.com/bhaki18/manga-cli) (Blazing-Fast Command-Line CLI)
 
 ---
 
-## ✨ Caratteristiche del Sito
+## ✨ Features
 
-- **100% Serverless & Statico**: Nessun backend o database richiesto, ospitato gratuitamente su **GitHub Pages**.
-- **Aggiornamento Dinamico delle Versioni**: Il client JavaScript interroga automaticamente i manifest `version.json` e `version_mobile.json` ospitati su `https://bhaki18.github.io/manga-cli/` per mostrare sempre l'ultimo numero di versione e i link di download aggiornati in tempo reale (con fallback istantaneo offline).
-- **Installazione Guidata per Tutti**: Schede interattive dedicate ad Android (con QR code per download diretto via fotocamera), Ubuntu/Debian (`.deb`), Arch Linux (`.pkg.tar.zst` e makepkg), Fedora/openSUSE/Void (installer universale), Windows e Terminale CLI.
-- **Pulsanti "Copia Comando" con Feedback**: Permette a chiunque di copiare i comandi di installazione con un solo click.
-- **Design Moderno Anime/Manga**: Tema scuro (Crunchyroll-inspired dark obsidian `#0A0B0E` con accenti `#F47521`), glassmorphism, effetti di glow atmosferici e completa reattività su smartphone, tablet e desktop.
+- **100% Free, Ad-Free & Serverless**: Completely static landing page hosted on **GitHub Pages** with zero tracking.
+- **TLauncher-Inspired Download Hub**: One-click direct downloads with automatic OS detection, quick platform selector modal, and simple copy-paste terminal snippets.
+- **Dynamic Live Versions**: Automatically queries `version.json` and `version_mobile.json` on `https://bhaki18.github.io/manga-cli/` to display the latest release tags and direct download URLs.
+- **User-Friendly Installation**: Straightforward, jargon-free instructions for Android (with QR code scanner), Ubuntu/Debian (`.deb`), Arch Linux (`pacman.conf`), Fedora/openSUSE (universal installer), Windows, and Terminal CLI.
+- **Modern Anime Dark Theme**: Inspired by modern streaming hubs (dark obsidian `#0A0B0E` with vibrant `#F47521` orange accents), atmospheric glow effects, and responsive design across mobile, tablet, and desktop screens.
 
 ---
 
-## 🚀 Anteprima Locale
+## 🚀 Local Preview
 
-Puoi testare il sito localmente con qualsiasi server statico:
+Test the website locally with any static web server:
 
 ```bash
-# Con Python 3
+# Using Python 3
 python3 -m http.server 8080
 
-# Oppure con Node (npx)
+# Or with Node.js
 npx serve .
 ```
 
-Apri `http://localhost:8080` nel tuo browser.
+Open `http://localhost:8080` in your web browser.
 
 ---
 
-## 📦 Pubblicazione su GitHub Pages
+## 📦 Deploy to GitHub Pages
 
-1. Fai il push su GitHub:
+1. Push your changes to GitHub:
    ```bash
    git add .
-   git commit -m "Aggiornato sito vetrina manga-ui-site"
+   git commit -m "Update website"
    git push origin main
    ```
-2. Nel tuo repository GitHub (`bhaki18/manga-ui-site`), vai su **Settings** > **Pages**.
-3. Sotto **Build and deployment** seleziona:
+2. In your repository on GitHub (`bhaki18/manga-ui-site`), navigate to **Settings** > **Pages**.
+3. Under **Build and deployment**:
    - **Source**: `Deploy from a branch`
-   - **Branch**: `main` / cartella `/(root)`
-   - Clicca **Save**.
-4. Il sito sarà visibile pubblicamente all'indirizzo:
+   - **Branch**: `main` / `/(root)`
+   - Click **Save**.
+4. The site will be live at:
    `https://bhaki18.github.io/manga-ui-site/`
