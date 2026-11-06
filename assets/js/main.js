@@ -274,8 +274,11 @@ function highlightAppCard(exp) {
 async function initLiveVersions() {
   const timestamp = Date.now();
 
-  // 1. Fetch Manga GUI (Desktop) - Checks manga-gui repo first, falls back to gh-pages
+  // 1. Fetch Manga GUI (Desktop) - Checks manga-gui-linux repo first, falls back to gh-pages and manga-gui
   const guiEndpoints = [
+    `https://raw.githubusercontent.com/bhaki18/manga-gui-linux/main/linux_version.json?_t=${timestamp}`,
+    `https://raw.githubusercontent.com/bhaki18/manga-cli/gh-pages/linux_version.json?_t=${timestamp}`,
+    `https://bhaki18.github.io/manga-cli/linux_version.json?_t=${timestamp}`,
     `https://raw.githubusercontent.com/bhaki18/manga-gui/main/version.json?_t=${timestamp}`,
     `https://bhaki18.github.io/manga-cli/version.json?_t=${timestamp}`
   ];

@@ -23,14 +23,11 @@ The ultimate pocket companion for Android devices.
 
 ---
 
-### 🖥️ [Manga GUI Desktop](https://github.com/bhaki18/manga-gui) — For Computers & Laptops
-The full-screen visual experience for Linux and Windows.
+### 🖥️ Desktop Editions — For Computers & Laptops
+The full-screen visual experience with dedicated repositories for Linux and Windows:
+- **🐧 [Manga GUI Linux](https://github.com/bhaki18/manga-gui-linux)**: Dedicated Linux edition supporting Arch Linux (Pacman), Ubuntu/Debian (`.deb`), and universal distro installer (`install.sh`).
+- **🪟 [Manga GUI Windows](https://github.com/bhaki18/manga-gui)**: Dedicated Windows 10 & 11 edition packaged with instant installer.
 - **Big-Screen Immersion**: Enjoy high-resolution manga pages and high-definition anime playback.
-- **Easy Installation**:
-  - **Ubuntu / Debian / Linux Mint**: Ready-to-run `.deb` package (double-click to install).
-  - **Arch Linux / Manjaro / EndeavourOS**: Dedicated Pacman repository (`sudo pacman -Sy manga-gui`).
-  - **Fedora / openSUSE**: One-step universal automatic installer.
-  - **Windows 10 & 11**: Ready-to-run `.zip` package (extract and double-click `MangaGui-Setup.exe` or `MangaGui.exe`).
 - **Pure Comfort**: Mouse navigation, keyboard shortcuts, library bookmarks, and clean anime aesthetics.
 
 👉 [Get Manga GUI for Desktop](https://bhaki18.github.io/manga-ui-site/#downloads)
