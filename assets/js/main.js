@@ -8,18 +8,18 @@
 // Default Fallback Configs (used if network is offline or throttled)
 const DEFAULTS = {
   desktop: {
-    version: '1.1.4-1',
-    pkgver: '1.1.4',
-    releaseDate: '2026-11-01',
-    debUrl: 'https://bhaki18.github.io/manga-cli/deb/manga-gui_1.1.4-1_amd64.deb',
-    archUrl: 'https://bhaki18.github.io/manga-cli/x86_64/manga-gui-bin-1.1.4-1-x86_64.pkg.tar.zst',
+    version: '1.2.7-1',
+    pkgver: '1.2.7',
+    releaseDate: '2026-11-07',
+    debUrl: 'https://bhaki18.github.io/manga-cli/deb/manga-gui_1.2.7-1_amd64.deb',
+    archUrl: 'https://bhaki18.github.io/manga-cli/x86_64/manga-gui-bin-1.2.7-1-x86_64.pkg.tar.zst',
     tarballUrl: 'https://raw.githubusercontent.com/bhaki18/manga-cli/gh-pages/manga-gui-linux-x64.tar.gz',
     windowsZipUrl: 'https://bhaki18.github.io/manga-cli/windows/manga-gui-windows.zip',
-    notes: 'MP4/HLS streaming support and UI stability patch'
+    notes: '100% English UI, dynamic SUB/DUB selector, sequential cover loading, cross-source deduplication'
   },
   mobile: {
-    version: '1.0.9',
-    notes: 'Latest update: stability patch',
+    version: '1.1.10',
+    notes: '100% English UI, dynamic SUB/DUB selector, sequential cover loading, cross-source deduplication',
     apkUrl: 'https://bhaki18.github.io/manga-cli/android/app-release.apk'
   },
   cli: {
